@@ -2,7 +2,10 @@
 import express  from "express";
 import dotenv from "dotenv";
 import conectarDB from "./config/db.js";
-import usuarioRoutes from './routes/usuarioRoutes.js'
+import usuarioRoutes from './routes/usuarioRoutes.js';
+import empresaRoutes from './routes/empresaRoutes.js';
+import tareaRoutes from './routes/tareaRoutes.js';
+
 
 
 const app = express ();
@@ -12,6 +15,8 @@ conectarDB();
 
 //Routing
 app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/empresas", empresaRoutes);
+app.use("/api/tareas", tareaRoutes);
 
 
 

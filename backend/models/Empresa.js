@@ -20,39 +20,34 @@ const empresaSchema = mongoose.Schema({
 
         type: Date,
         default: Date.now(),
-
     },
 
     cliente: {
         type: String,
         trim: true,
         required: true,
-
     },
 
     creador: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario"
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Usuario",
     },
 
     colaboradores : [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"Usuario",
 
-        }
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario",
+        } 
 
     ]
-
-
-
-
-
-
-},{
+    
+},
+{
 
     timestamps: true, 
-})
+}
+);
 
 const Empresa = mongoose.model("Empresa", empresaSchema );
 export default Empresa;

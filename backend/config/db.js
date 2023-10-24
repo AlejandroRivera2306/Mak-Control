@@ -9,8 +9,6 @@ const conectarDB = async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true 
 
-
-
         }
         );
 

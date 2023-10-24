@@ -140,7 +140,7 @@ const perfil = async (req, res) => {
 
    const {usuario} = req; 
    res.json(usuario);
-
+   
 
 
 }
