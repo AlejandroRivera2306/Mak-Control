@@ -1,9 +1,10 @@
 
 import Empresa from "../models/Empresa.js";
+import Tarea from "../models/Tarea.js";
 
 const obtenerEmpresas = async (req, res) => {
 
-    // const empresas = await Empresa.find(); // me sirve para admin trae todos los proyectos de todos 
+    //const empresas = await Empresa.find(); // me sirve para admin trae todos los proyectos de todos 
     const empresas = await Empresa.find().where('creador').equals(req.usuario)// trae las empresas solo lo del usuario que logea 
     res.json(empresas)
 
@@ -21,7 +22,8 @@ try {
     
 } catch (error) {
 
-    console.log(error)
+    console.log(error);
+
     
 }
   
@@ -46,7 +48,16 @@ if(empresa.creador.toString() !== req.usuario._id.toString()){ // con esto traig
 
 } 
 
-res.json(empresa)
+
+//Obtener las tareas del proyecto 
+const tareas = await Tarea.find().where('empresa').equals(empresa._id)
+
+res.json({
+    empresa,
+    tareas,
+
+
+});
 
 
 
@@ -127,10 +138,28 @@ const eliminarColaborador = async (req, res) => {
 
 }
 
-const obtenerTareas = async (req, res) => {
+// const obtenerTareas = async (req, res) => {
+
+//     const { id } = req.params;
+
+//     const existeEmpresa = await Empresa.findById(id)
+
+//     if(!existeEmpresa) {
+
+//         const error = new Error (' No Encontrado');
+//         return res.status(404).json({msg: error.message})
+
+//     }
+//     // tienes que ser el creador del proyecto o colaborador 
+
+//     const tareas = await Tarea.find().where('empresa').equals(id)
+
+//     res.json(tareas)
 
 
-}
+
+
+// }
 
 
 export {
@@ -142,5 +171,5 @@ export {
     eliminarEmpresa,
     agregarColaborador,
     eliminarColaborador,
-    obtenerTareas
+    
 };

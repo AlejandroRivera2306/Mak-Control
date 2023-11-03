@@ -5,14 +5,14 @@ import {registrar, autenticar, confirmar, olvidePassword,comprobarToken, nuevoPa
 import checkAuth from "../middleware/checkAuth.js";
 
 
-//Autenticacion registro y conformacion de usuarios
+//Autenticacion registro y confirmacion de usuarios
 
 router.post("/" , registrar ); //Registro de usuarios 
 router.post("/login", autenticar);// 
 router.get('/confirmar/:token' , confirmar);
 router.post('/olvide-password', olvidePassword);
 router.route('/olvide-password/:token').get(comprobarToken).post(nuevoPassword)
-router.get('/perfil',checkAuth,perfil);
+router.get('/perfil', checkAuth,perfil);
 
 
 

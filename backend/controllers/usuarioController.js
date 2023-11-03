@@ -3,6 +3,9 @@ import Usuario from "../models/Usuario.js";
 import generarId from '../helpers/generarId.js';
 import generarJWT from "../helpers/generarJWT.js";
 
+import {emailRegistro, emailOlvidePassword} from "../helpers/email.js"
+
+
 
 
 const registrar = async (req, res) => {
@@ -11,14 +14,23 @@ const registrar = async (req, res) => {
     const { email } = req.body;
     const existeUsuario = await Usuario.findOne({email});
     if (existeUsuario) {
-        const error = new Error ('Usuario ya registrado');
+        const error = new Error ('This user is already registered');
         return res.status(400).json({ msg: error.message})
     }
    try {
     const usuario = new Usuario (req.body);
     usuario.token = generarId ();
-    const usuarioAlmacenado = await usuario.save ()
-    res.json(usuarioAlmacenado)
+    await usuario.save ()
+
+    // enviar email de confirmacion 
+
+    emailRegistro({
+
+        email: usuario.email,
+        nombre: usuario.nombre,
+        token: usuario.token,
+    })
+    res.json({msg: "Confirm your account in your email address"});
     
    } catch (error) {
     console.log(error)
@@ -32,7 +44,7 @@ const autenticar = async (req, res) => {
     // Comprobar si el usuario existe 
     const usuario = await Usuario.findOne({email});
     if(!usuario) {
-        const error = new Error (' El usuario no existe');
+        const error = new Error (' The user does not exist');
         return res.status(404).json({msg: error.message})
     }
     // Comprobar usuario confirmado
@@ -50,7 +62,7 @@ const autenticar = async (req, res) => {
         token: generarJWT(usuario._id)
      })
     }else {
-        const error = new Error (' El password es incorrecto');
+        const error = new Error ('password is incorrect');
         return res.status(403).json({msg: error.message})
     }
 }
@@ -68,7 +80,7 @@ try {
     usuarioConfirmar.confirmado = true;
     usuarioConfirmar.token = "";
     await usuarioConfirmar.save();
-    res.json({msg: 'Usuario conformado correctamente'})
+    res.json({msg: 'User successfully confirmed'})
 
 
 } catch (error) {
@@ -84,7 +96,7 @@ const olvidePassword = async (req, res) => {
 
     const usuario = await Usuario.findOne({email});
     if(!usuario) {
-        const error = new Error (' El usuario no existe');
+        const error = new Error (' This user does not exist');
         return res.status(404).json({msg: error.message})
     }
 
@@ -92,7 +104,24 @@ const olvidePassword = async (req, res) => {
 
         usuario.token = generarId();
        await usuario.save();
-       res.json({msg: "Hemos enviado un email con las instrucciones"});
+           // Enviar el email 
+
+
+    emailOlvidePassword({
+
+        email: usuario.email,
+        nombre: usuario.nombre,
+        token: usuario.token,
+
+
+    })
+
+
+
+       res.json({msg: "We have sent an email "});
+
+   
+
         
     } catch (error) {
         console.log(error);
@@ -125,7 +154,7 @@ const nuevoPassword  = async (req, res) => {
        try {
         
         await usuario.save();
-        res.json({msg: "Password modificado correctamente"})
+        res.json({msg: "Password successfully modified"})
        } catch (error) {
         console.log(error)
        }
