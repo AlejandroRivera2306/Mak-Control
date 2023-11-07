@@ -50,14 +50,14 @@ if(empresa.creador.toString() !== req.usuario._id.toString()){ // con esto traig
 
 
 //Obtener las tareas del proyecto 
-const tareas = await Tarea.find().where('empresa').equals(empresa._id)
+// const tareas = await Tarea.find().where('empresa').equals(empresa._id)
 
-res.json({
+res.json(
     empresa,
-    tareas,
+    // tareas,
 
 
-});
+);
 
 
 

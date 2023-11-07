@@ -6,11 +6,11 @@ import Registrar from './paginas/Registrar'
 import OlvidePassword from './paginas/OlvidePassword'
 import NuevoPassword from './paginas/NuevoPassword'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta'
-import {AuthProvider} from './context/AuthProvider'
-import { EmpresasProvider } from './context/EmpresasProvider'
 import Empresas from './paginas/Empresas'
 import NuevaEmpresa from './paginas/NuevaEmpresa'
-
+import Empresa from './paginas/Empresa'
+import {AuthProvider} from './context/AuthProvider'
+import { EmpresasProvider } from './context/EmpresasProvider'
 
 function App() {
  
@@ -31,6 +31,7 @@ function App() {
         <Route path="/empresas" element={<RutaProtegida/>}>
         <Route index element={<Empresas/>} />
         <Route path='crear-empresa' element={<NuevaEmpresa/>}/>
+        <Route path=':id' element={<Empresa/>}/>
       </Route>
 
        

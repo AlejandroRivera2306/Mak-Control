@@ -28,6 +28,99 @@ const empresaSchema = mongoose.Schema({
         required: true,
     },
 
+    email: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    city: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    state: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+  
+    zip: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    numbercomp: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    website: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    closetax: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    contactname: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    whois: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    contactnumber: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    emailcontact: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    payrollcontact: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    ein: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    ssn: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    incometax: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    empleados: [
+        {
+          nombre: String,
+          cargo: String,
+          porcentaje: Number
+        }
+      ],
+
     creador: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Usuario",
