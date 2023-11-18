@@ -220,15 +220,20 @@
 
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useParams,Link } from 'react-router-dom';
+import { useEffect} from 'react';
 import useEmpresas from '../hooks/useEmpresas';
+import ModalFormularioStaff from '../components/ModalFormularioStaff';
+import ModalEliminarCuenta from '../components/ModalEliminarCuenta';
+import CuentasBank from '../components/CuentasBank';
+import Alerta from '../components/Alerta';
 
 import { PaperClipIcon } from '@heroicons/react/20/solid';
 
 export default function Empresa() {
   const params = useParams();
-  const { obtenerEmpresa, empresa, cargando } = useEmpresas();
+  const { obtenerEmpresa, empresa, cargando,handleModalStaff,alerta } = useEmpresas();
+  
 
   useEffect(() => {
     obtenerEmpresa(params.id);
@@ -255,7 +260,11 @@ export default function Empresa() {
     ssn,
     incometax,
     empleados,
+    banksets,
+    
   } = empresa;
+
+  const{msg}= alerta
 
   return (
     <div>
@@ -274,10 +283,33 @@ export default function Empresa() {
           </button>
         </div>
       ) : (
-        <div>
-          <div className="px-4 sm:px-0">
-            <h1 className="text-5xl font-semibold leading-7 text-gray-900">{nombre}</h1>
+        <div >
+          <div className="px-4 sm:px-0 flex justify-between">
+            <div>
+            <h1 className="text-4xl font-semibold leading-7 text-gray-900">{nombre}</h1>
             <p className="mt-1 max-w-2xl text-2xl leading-6 text-gray-500">{descripcion}</p>
+            </div>
+            <div className='flex items-center gap-2 text-gray-500 hover:text-black'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+
+            <Link
+            to={`/empresas/editar/${params.id}`}
+            className= 'uppercase font-bold'
+            >
+            Update Data
+            </Link>
+            </div>
+
+
+            
+
+            <ModalFormularioStaff
+              
+            />
+
+            <ModalEliminarCuenta/>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6  ">
             <div className="sm:col-span-3">
@@ -604,38 +636,242 @@ export default function Empresa() {
             </div>
 
 
-            <div className="mt-6 border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Partners</h2>
-
-            {/* Muestra la lista de partners */}
-            <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
-              {empleados && empleados.map((empleado, index) => (
-                <li key={index} className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                  <div className="flex w-0 flex-1 items-center">
-                    <div className="ml-1 flex min-w-0 flex-1 gap-1">
-                      <input className="flex-shrink-0 text-gray-600 text-2xl rounded-md" value={empleado.nombre}></input>
-                      <span className="flex-shrink-0 text-gray-600 text-2xl" >{empleado.cargo}</span>
-                      <span className="flex-shrink-0 text-gray-600 text-2xl">{empleado.porcentaje}%</span>
-                    </div>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      {/* Download */}
-                    </a>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-
-
-
-
-
-
+           
 
         </div>
+
+        <div className="mt-6 border-b border-gray-900/10 pb-12">
+
+          
+
+          </div>
+
+          <div className="mt-6 border-b border-gray-900/10 pb-12">
+  <h2 className="text-base font-semibold leading-7 text-gray-900">Partners</h2>
+
+  <div className="overflow-x-auto">
+    <table className="mt-4 min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Name
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Member
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            %
+          </th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-200">
+        {empleados &&
+          empleados.map((empleado, index) => (
+            <tr key={index} className="text-sm text-gray-500">
+              <td className="px-6 py-4 whitespace-nowrap">{empleado.nombre}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{empleado.cargo}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{empleado.porcentaje}%</td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<button
+  onClick={handleModalStaff}
+  type='button'
+  className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
+>
+  <span className="mr-2">Create Account</span>
+  <span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  </span>
+</button>
+
+        {/* <div className="mt-6 border-b border-gray-900/10 pb-12">
+  <h2 className="text-base font-semibold leading-7 text-gray-900">Bankset</h2>
+
+  <div className="overflow-x-auto">
+    <table className="mt-4 min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Account Number
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Name Bank
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Account Type
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Information Account
+          </th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-200">
+        {banksets &&
+          banksets.map((bankset, index) => (
+            <tr key={index} className="text-sm text-gray-500">
+              <td className="px-6 py-4 whitespace-nowrap">{bankset.accountNumber}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{bankset.bankName}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{bankset.accountType}</td>
+              <td className="px-6 py-4 whitespace-nowrap">{bankset.bankInfo}</td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </div>
+</div> */}
+
+
+
+  
+  {/* <div className='bg-white shadow mt-10 rounded-lg '> 
+  
+
+  
+ <div className='felx justify-center'>
+
+ 
+  {msg && <Alerta alerta={alerta}/>}
+ 
+ 
+ </div>
+  
+  <thead className="bg-gray-50 w-full ">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Nombre
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Descripción
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Prioridad
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Fecha de Entrega
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Info Bancaria
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+    {empresa.tareas?.length ? empresa.tareas?.map(tarea => (
+
+      <CuentasBank
+       key={tarea._id}
+       tarea={tarea}
+      />
+    )) : <p className='text-center my-5 p-10'>
+
+    No hay cuentas bancarias de esta empresa
+    </p> }
+
+  </div> */}
+
+
+<div className='bg-white shadow mt-10 rounded-lg'>
+  {/* ...otros elementos */}
+  <div className='flex justify-center'>
+    {msg && <Alerta alerta={alerta} />}
+  </div>
+
+  <div className="overflow-x-auto">
+    <table className="w-full  rounded-lg">
+      <thead className="bg-gray-50 w-full block ">
+        <tr>
+          <th className="w-1/6 px-3 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Nombre
+          </th>
+          <th className="w-1/6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Descripción
+          </th>
+          <th className="w-1/6  text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+            Prioridad
+          </th>
+          <th className="w-1/6 px-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Fecha de Entrega
+          </th>
+          <th className="w-1/5 px-10 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Info Bancaria
+          </th>
+          <th className="w-1/5 px-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+           
+          </th>
+        </tr>
+      </thead>
+
+      {empresa.tareas?.length ? empresa.tareas?.map(tarea => (
+
+<CuentasBank
+ key={tarea._id}
+ tarea={tarea}
+/>
+)) : <p className='text-center my-5 p-10'>
+
+No hay cuentas bancarias de esta empresa
+</p> }
+    </table>
+  </div>
+  
+</div>
+
+<div >
+  <h2 className="text-base font-semibold leading-7 text-gray-900">COLABORADORES</h2>
+</div>
+
+
+
+<div className="mt-6 border-b border-gray-900/10 pb-12">
+  <h2 className="text-base font-semibold leading-7 text-gray-900">Services</h2>
+
+  <div className="overflow-x-auto">
+    <table className="mt-4 min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Service
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Details
+          </th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-200">
+        <tr className="text-sm text-gray-500">
+          <td className="px-6 py-4 whitespace-nowrap">Accounting</td>
+          <td className="px-6 py-4 whitespace-nowrap">{empresa.accounting}</td>
+        </tr>
+        <tr className="text-sm text-gray-500">
+          <td className="px-6 py-4 whitespace-nowrap">Tax Planning</td>
+          <td className="px-6 py-4 whitespace-nowrap">{empresa.txplanning}</td>
+        </tr>
+        <tr className="text-sm text-gray-500">
+          <td className="px-6 py-4 whitespace-nowrap">Sale Tax</td>
+          <td className="px-6 py-4 whitespace-nowrap">{empresa.saletax}</td>
+        </tr>
+        <tr className="text-sm text-gray-500">
+          <td className="px-6 py-4 whitespace-nowrap">Payroll</td>
+          <td className="px-6 py-4 whitespace-nowrap">{empresa.payroll}</td>
+        </tr>
+        <tr className="text-sm text-gray-500">
+          <td className="px-6 py-4 whitespace-nowrap">Type of contract</td>
+          <td className="px-6 py-4 whitespace-nowrap">{empresa.contract}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <input

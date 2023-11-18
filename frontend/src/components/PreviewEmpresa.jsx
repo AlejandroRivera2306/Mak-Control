@@ -1,35 +1,184 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+// import React from 'react'
+// import { Link } from 'react-router-dom'
 
-const PreviewEmpresa = ({empresa}) => {
-    const { nombre, _id, cliente, } = empresa
-  return (
-    <div className='border-b p-5 flex'>
-        <p className='flex-1'> 
-        {nombre}
+// const PreviewEmpresa = ({empresa}) => {
+//     const { nombre, _id, cliente,closetax, state, city,contract} = empresa
+//   return (
+//     <div className='border-b p-5 flex'>
+//         <p className='flex-1'> 
+//         {nombre}
 
-        <span className='text-sm text-gray-500 uppercase'>
-            {''} {cliente}
-        </span>
-        </p>
+//         <span className='text-sm text-blue-600 uppercase'>
+//             <span className='text-sm text-stone-50
+//               bg-green-500 uppercase rounded-md ml-3 mr-2'>{''} {closetax} </span> {''} {state} {''} {city} <span className='text-sm text-stone-50
+//               bg-black uppercase rounded-md'>{''} {contract}  </span>
+            
+//         </span>
+
+//         </p>
         
-    <Link to={`${_id}`}
-    className={"text-gray-600 hover:text-gray-800 uppercase text-sm font-bold"}
-    >
-  <svg class="h-8 w-8 text-green-500 hover:text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-  <circle cx="12" cy="12" r="3" />
-</svg>
+//     <Link to={`${_id}`}
+//     className={"text-gray-600 hover:text-gray-800 uppercase text-sm font-bold"}
+//     >
+//   <svg className="h-8 w-8 text-green-500 hover:text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+//   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+//   <circle cx="12" cy="12" r="3" />
+// </svg>
     
-    </Link>
+//     </Link>
     
     
-    </div>
+//     </div>
 
    
-  )
-}
+//   )
+// }
 
-export default PreviewEmpresa
+// export default PreviewEmpresa
 
+// import React from 'react';
+// import { Link } from 'react-router-dom';
 
+// const PreviewEmpresa = ({ empresa }) => {
+//   const { nombre, _id, cliente, state, city, contract } = empresa;
+
+//   return (
+//     <div className=' border-b border-gray-900/10 pb-3'>
+//       <div className='overflow-x-auto'>
+//         <table className=' min-w-full divide-y divide-gray-200'>
+//           <thead className='bg-gray-50'>
+//             <tr>
+//               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+//                 Nombre
+//               </th>
+//               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+//                 Cliente
+//               </th>
+//               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+//                 Estado
+//               </th>
+//               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+//                 Ciudad
+//               </th>
+//               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+//                 Contrato
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody className='divide-y divide-gray-200'>
+//             <tr className='text-sm text-gray-500'>
+//               <td className='px-6 py-4 whitespace-nowrap'>{nombre}</td>
+//               <td className='px-6 py-4 whitespace-nowrap'>{cliente}</td>
+//               <td className='px-6 py-4 whitespace-nowrap'>{state}</td>
+//               <td className='px-6 py-4 whitespace-nowrap'>{city}</td>
+//               <td className='px-6 py-4 whitespace-nowrap'>{contract}</td>
+//             </tr>
+//           </tbody>
+//         </table>
+//       </div>
+
+//       <Link
+//         to={`${_id}`}
+//         className='text-gray-600 hover:text-gray-800 uppercase text-sm font-bold mt-4 inline-block'
+//       >
+//         <svg
+//           className='h-8 w-8 text-green-500 hover:text-indigo-600'
+//           viewBox='0 0 24 24'
+//           fill='none'
+//           stroke='currentColor'
+//           strokeWidth='2'
+//           strokeLinecap='round'
+//           strokeLinejoin='round'
+//         >
+//           <path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z' />
+//           <circle cx='12' cy='12' r='3' />
+//         </svg>
+//       </Link>
+//     </div>
+//   );
+// };
+
+// export default PreviewEmpresa;
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const PreviewEmpresa = ({ empresa }) => {
+  // const { nombre, _id, cliente, state, city, contract } = empresa;
+
+  const {
+    nombre,
+    _id,
+    descripcion,
+    fechaEntrega,
+    email,
+    city,
+    state,
+    zip,
+    numbercomp,
+    website,
+    cliente,
+    closetax,
+    contactname,
+    whois,
+    contactnumber,
+    emailcontact,
+    payrollcontact,
+    ein,
+    ssn,
+    incometax,
+    empleados,
+    banksets,
+    contract
+    
+  } = empresa;
+
+  return (
+    <div className='border-b border-gray-900/10 pb-3'>
+      <div className='overflow-x-auto'>
+        <table className='min-w-full divide-y divide-gray-200 bg-white text-sm'>
+          {/* <thead className='ltr:text-left rtl:text-right'>
+            <tr>
+              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
+                Nombre
+              </th>
+              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
+                Cliente
+              </th>
+              <th className='w-1/10 px-4 py-2 font-medium text-gray-900'>
+                Estado
+              </th>
+              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
+                Ciudad
+              </th>
+              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
+                Contrato
+              </th>
+              <th className='w-1/6 px-4 py-2'></th>
+            </tr>
+          </thead> */}
+          <tbody className='divide-y divide-gray-200'>
+            <tr>
+              <td className='w-1/6 px-4 py-2 font-medium text-gray-900  bg-blue-200'>
+                {nombre}
+              </td>
+              <td className='w-1/6 px-4 py-2 text-gray-700  bg-sky-300'>{closetax}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-700 pr-6  bg-sky-100'>{state}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-700 pr-6  bg-sky-200'>{city}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-700 pr-6  bg-blue-100'>{contract}</td>
+              <td className='w-1/6 px-4 py-2'>
+                <Link
+                  to={`${_id}`}
+                  className='inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700'
+                >
+                  View
+                </Link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default PreviewEmpresa;

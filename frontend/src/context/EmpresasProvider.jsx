@@ -12,6 +12,10 @@ const EmpresasProvider = ({children}) => {
     const navigate = useNavigate();
     const [ empresa, setEmpresa] = useState({})
     const [ cargando , setCargando] = useState(false)
+    const [ modalFormularioStaff , setModalFormularioStaff ] = useState(false)
+    const [ tarea, setTarea] =  useState({})
+    const [ modalEliminarCuenta , setModalEliminarCuenta]= useState(false)
+
 
 
     useEffect(() => {
@@ -54,42 +58,101 @@ const EmpresasProvider = ({children}) => {
 
     const submitEmpresa = async empresa =>{
 
-       try {
 
-        const token = localStorage.getItem('token')
-        if(!token) return
+        if(empresa.id){
+           await editarEmpresa(empresa)
 
-            const config = {
-                headers: {
+        }else {
+            await  nuevaEmpresa(empresa)
+        }
 
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-
-
-            }
-
-            const { data} = await clienteAxios.post('/empresas',empresa,config)
-            setEmpresas([...empresas,data])
-
-            setAlerta({
-
-                msg:'Proyecto creado correctamente',
-                error: false
-            })
-
-            setTimeout(() => {
-                setAlerta({})
-                navigate('/empresas')
-
-            }, 3000)
-
-       } catch (error) {
-        console.log(error)
-        
-       }
+      
 
     }
+
+
+    const editarEmpresa = async (empresa) => {
+        try {
+            const token = localStorage.getItem('token')
+            if(!token) return
+    
+                const config = {
+                    headers: {
+    
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+    
+    
+                }
+                const {data} = await clienteAxios.put(`/empresas/${empresa.id}`, empresa, config)
+                //sinconizzar el state 
+
+                const empresasActualizadas = empresas.map(empresaState => empresaState._id === data._id ? data : empresaState)
+                    setEmpresas(empresasActualizadas)
+
+
+
+                    setAlerta({
+    
+                        msg:'Company  updated ',
+                        error: false
+                    })
+        
+                    setTimeout(() => {
+                        setAlerta({})
+                        navigate('/empresas')
+        
+                    }, 3000)
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const nuevaEmpresa = async (empresa) => {
+
+        try {
+
+            const token = localStorage.getItem('token')
+            if(!token) return
+    
+                const config = {
+                    headers: {
+    
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+    
+    
+                }
+    
+                const { data} = await clienteAxios.post('/empresas',empresa,config)
+                setEmpresas([...empresas,data])
+    
+                setAlerta({
+    
+                    msg:'Company created',
+                    error: false
+                })
+    
+                setTimeout(() => {
+                    setAlerta({})
+                    navigate('/empresas')
+
+                    location.reload();
+    
+                }, 3000)
+    
+           } catch (error) {
+            console.log(error)
+            
+           }
+    }
+
+
 
 
     const obtenerEmpresa = async id => {
@@ -123,6 +186,202 @@ const EmpresasProvider = ({children}) => {
 
     }
 
+    const eliminarEmpresa = async id => {
+       try {
+
+        const token = localStorage.getItem('token')
+            if(!token) return
+    
+                const config = {
+                    headers: {
+    
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+    
+    
+                }
+    
+                const { data} = await clienteAxios.delete(`/empresas/${id}`,config)
+
+                const empresasActualizadas = empresas.filter( empresaState => empresaState._id !== id )
+                setEmpresas(empresasActualizadas)
+
+                setAlerta({
+
+                    msg: data.msg,
+                    error: false
+                })
+
+                setTimeout(() => {
+                    setAlerta({})
+                    navigate('/empresas')
+    
+                }, 3000)
+
+       
+       } catch (error) {
+        console.log(error)
+       }
+        
+    } 
+    
+    const handleModalStaff = () => {
+        setModalFormularioStaff (!modalFormularioStaff)
+        setTarea({})
+
+    }
+
+    const submitCuenta =  async tarea  => {
+
+        if(tarea?.id){
+           await editarCuenta(tarea)
+           
+        }else{
+         await   crearCuenta(tarea)
+
+        }
+
+
+    }
+
+    const crearCuenta = async tarea => {
+        try {
+
+
+            const token = localStorage.getItem('token')
+                if(!token) return
+        
+                    const config = {
+                        headers: {
+        
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+        
+        
+                    }
+    
+                    const {data} = await clienteAxios.post('/tareas', tarea, config)
+                    console.log(data)
+                   
+    
+                    //agregar cuentas al state 
+                    const empresaActualizada = {...empresa }
+                    empresaActualizada.tareas=[...empresa.tareas,data]
+    
+                    setEmpresa(empresaActualizada)
+                    setAlerta({})
+                    setModalFormularioStaff(false)
+    
+            
+           } catch (error) {
+            console.log(error)
+           }
+
+    }
+
+
+    const editarCuenta = async tarea => {
+
+        try {
+
+            const token = localStorage.getItem('token')
+                if(!token) return
+        
+                    const config = {
+                        headers: {
+        
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+        
+        
+                    }
+
+                    const {data} = await clienteAxios.put(`/tareas/${tarea.id}`,tarea, config)
+
+    
+
+                    const empresaActualizada = {...empresa } 
+                     empresaActualizada.tareas = empresaActualizada.tareas.map(tareaState => 
+                    tareaState._id === data._id ? data:tareaState)
+                    setEmpresa(empresaActualizada)
+                   
+                    setAlerta({})
+                    setModalFormularioStaff(false)
+    
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
+
+    const handleModalEditarCuenta = tarea => {
+
+        setTarea(tarea)
+        setModalFormularioStaff(true)
+    }
+
+    const hadleModalEliminarCuenta = tarea => {
+        setTarea(tarea)
+
+        setModalEliminarCuenta(!modalEliminarCuenta)
+    }
+
+    const eliminarCuenta = async()=>{
+
+
+        try {
+
+
+            const token = localStorage.getItem('token')
+                if(!token) return
+        
+                    const config = {
+                        headers: {
+        
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+        
+        
+                    }
+
+                    const {data} = await clienteAxios.delete(`/tareas/${tarea._id}`, config)
+                    setAlerta({
+                            msg:data.msg,
+                            error:false
+                    })
+    
+
+                    const empresaActualizada = {...empresa } 
+                    empresaActualizada.tareas = empresaActualizada.tareas.filter(tareaState=> tareaState._id !== tarea._id)
+
+                     
+                    setEmpresa(empresaActualizada)
+                    setModalEliminarCuenta(false)
+                    setTarea({})
+
+                    setTimeout(()=>{
+                        setAlerta({})
+
+                    },1000)
+                    
+            
+        } catch (error) {
+
+            console.log(error)
+            
+        }
+
+
+    }
+
+
+
     return (
 
         <EmpresasContext.Provider
@@ -135,7 +394,17 @@ const EmpresasProvider = ({children}) => {
                 submitEmpresa,
                 obtenerEmpresa,
                 empresa,
-                cargando
+                cargando,
+                eliminarEmpresa,
+                modalFormularioStaff,
+                handleModalStaff,
+                submitCuenta,
+                handleModalEditarCuenta,
+                tarea,
+                modalEliminarCuenta,
+                hadleModalEliminarCuenta,
+                eliminarCuenta
+                
                 
             }}
         

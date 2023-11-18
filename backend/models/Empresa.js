@@ -113,6 +113,45 @@ const empresaSchema = mongoose.Schema({
         required: true,
     },
 
+    accounting:{
+
+        type: String,
+        trim: true,
+        required: true,
+
+    },
+
+    txplanning:{
+
+        type: String,
+        trim: true,
+        required: true,
+
+    },
+    saletax:{
+
+        type: String,
+        trim: true,
+        required: true,
+
+    },
+    payroll:{
+
+        type: String,
+        trim: true,
+        required: true,
+
+    },
+    contract:{
+
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+
+
+
     empleados: [
         {
           nombre: String,
@@ -121,10 +160,29 @@ const empresaSchema = mongoose.Schema({
         }
       ],
 
+
+    //   banksets: [
+    //     {
+    //       accountNumber: String,
+    //       bankName: String,
+    //       bankInfo: String,
+    //       accountType:String
+    //     }
+    //   ],
+
     creador: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Usuario",
     },
+
+    tareas: [
+
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Tarea",
+
+        }
+    ],
 
     colaboradores : [
 
@@ -134,6 +192,8 @@ const empresaSchema = mongoose.Schema({
         } 
 
     ]
+
+  
     
 },
 {

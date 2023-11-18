@@ -9,8 +9,11 @@ import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 import Empresas from './paginas/Empresas'
 import NuevaEmpresa from './paginas/NuevaEmpresa'
 import Empresa from './paginas/Empresa'
+import EditarEmpresa from './paginas/EditarEmpresa'
 import {AuthProvider} from './context/AuthProvider'
 import { EmpresasProvider } from './context/EmpresasProvider'
+
+
 
 function App() {
  
@@ -32,6 +35,11 @@ function App() {
         <Route index element={<Empresas/>} />
         <Route path='crear-empresa' element={<NuevaEmpresa/>}/>
         <Route path=':id' element={<Empresa/>}/>
+        <Route path='editar/:id' element={<EditarEmpresa/>}/>
+
+
+     
+        
       </Route>
 
        

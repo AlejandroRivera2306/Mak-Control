@@ -23,6 +23,10 @@ if(existeEmpresa.creador.toString() !== req.usuario._id.toString()){
 
 try {
     const tareaAlmacenada = await Tarea.create(req.body)
+    // Almecenar ID EN LA EMPRES
+    existeEmpresa.tareas.push(tareaAlmacenada._id)
+    await existeEmpresa.save();
+
     res.json(tareaAlmacenada)
     
 } catch (error) {
@@ -131,7 +135,7 @@ const eliminarTarea = async (req, res) => {
     try {
 
     await tarea.deleteOne();
-    res.json({msg: "Tarea ELiminada"})
+    res.json({msg: "Account Delete"})
         
     } catch (error) {
 

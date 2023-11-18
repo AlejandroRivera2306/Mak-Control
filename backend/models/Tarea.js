@@ -23,7 +23,7 @@ const tareaSchema = mongoose.Schema({
 
 
     },
-
+ 
     fechaEntrega: {
         type: Date,
         required: true,
@@ -34,7 +34,13 @@ const tareaSchema = mongoose.Schema({
     prioridad:{
         type: String,
         required: true,
-        enum: ["Media", "Baja", "Alta"],
+        enum: ["Saving", "Checking"],
+    },
+
+    infobank:{
+        type: String,
+        required: true,
+        enum: ["Banking Online", "Customer Sends"],
     },
 
     empresa:{

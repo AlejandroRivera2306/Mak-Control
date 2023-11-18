@@ -12,6 +12,8 @@ const Empresas = () => {
                         placeholder='Buscar empresa'
                         className='rounded-lg lg:w-96 block p-2 border mr-2'
                     /></span>
+    
+
     <div className=' bg-white shadow mt-10 rounded-lg p-5'>
     {empresas.length  ?  
         empresas.map(empresa => (
@@ -22,7 +24,7 @@ const Empresas = () => {
         />
 
     ))
-    : <p> NO hay proyectos</p>}
+    : <p> no se encontraron empresas</p>}
     </div>
     
     </>

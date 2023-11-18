@@ -5,7 +5,7 @@ import Tarea from "../models/Tarea.js";
 const obtenerEmpresas = async (req, res) => {
 
     //const empresas = await Empresa.find(); // me sirve para admin trae todos los proyectos de todos 
-    const empresas = await Empresa.find().where('creador').equals(req.usuario)// trae las empresas solo lo del usuario que logea 
+    const empresas = await Empresa.find().where('creador').equals(req.usuario).select('-tareas')// trae las empresas solo lo del usuario que logea 
     res.json(empresas)
 
 }
@@ -31,7 +31,7 @@ try {
 const obtenerEmpresa = async (req, res) => {
 
 const {id} = req.params;
-const empresa = await Empresa.findById(id)
+const empresa = await Empresa.findById(id).populate('tareas')
 
 
 
@@ -118,7 +118,7 @@ const eliminarEmpresa = async (req, res) => {
 
     try {
         await empresa.deleteOne();
-        res.json({msg:" Empresa Eliminado"})
+        res.json({msg:" Company Deleted"})
         
     } catch (error) {
 
