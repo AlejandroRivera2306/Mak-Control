@@ -219,7 +219,7 @@
 // }
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams,Link } from 'react-router-dom';
 import { useEffect} from 'react';
 import useEmpresas from '../hooks/useEmpresas';
@@ -227,12 +227,20 @@ import ModalFormularioStaff from '../components/ModalFormularioStaff';
 import ModalEliminarCuenta from '../components/ModalEliminarCuenta';
 import CuentasBank from '../components/CuentasBank';
 import Alerta from '../components/Alerta';
+import FormularioColaborador from '../components/FormularioColaborador';
+import ModalEliminarColaborador from '../components/ModalEliminarColaborador';
+
 
 import { PaperClipIcon } from '@heroicons/react/20/solid';
 
+import Colaborador from '../components/Colaborador';
+
 export default function Empresa() {
   const params = useParams();
-  const { obtenerEmpresa, empresa, cargando,handleModalStaff,alerta } = useEmpresas();
+  const { obtenerEmpresa, empresa, cargando,handleModalStaff,alerta,handleModalPersonal } = useEmpresas();
+
+
+  const [ modal, setModal] = useState(false)
   
 
   useEffect(() => {
@@ -310,6 +318,8 @@ export default function Empresa() {
             />
 
             <ModalEliminarCuenta/>
+            <ModalEliminarColaborador/>
+            
           </div>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6  ">
             <div className="sm:col-span-3">
@@ -824,9 +834,54 @@ No hay cuentas bancarias de esta empresa
   
 </div>
 
-<div >
-  <h2 className="text-base font-semibold leading-7 text-gray-900">COLABORADORES</h2>
+<div className='flex items-center justify-between ' >
+  <h2 className="text-base font-semibold leading-7 text-gray-900">Staff Company</h2>
+
+  {/* <Link
+  to={`/empresas/nuevo-colaborador/${empresa._id}`}
+  className='text-gray-400 uppercase hover:text-black font-bold'
+  >
+  AGREGAR 
+  </Link>
+</div> */}
+
+
+<button
+  onClick={handleModalPersonal}
+  type='button'
+  className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
+>
+  <span className="mr-2">Add Staff</span>
+  <span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  </span>
+</button>
 </div>
+
+<FormularioColaborador
+
+/>
+
+
+<div>  {empresa.colaboradores?.length ? empresa.colaboradores?.map(colaborador => (
+ <Colaborador
+  key={colaborador._id}
+  colaborador={colaborador}
+
+
+ 
+ />
+
+
+)) : <p className='text-center my-5 p-10'>
+
+No staff assigned
+</p> }
+</div>
+
+
 
 
 

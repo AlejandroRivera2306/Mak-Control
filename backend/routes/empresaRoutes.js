@@ -6,6 +6,7 @@ import {obtenerEmpresas,
     editarEmpresa,
     eliminarEmpresa,
     agregarColaborador,
+    buscarColaborador,
     eliminarColaborador,
     } from '../controllers/empresaController.js'
 
@@ -23,8 +24,9 @@ import checkAuth from '../middleware/checkAuth.js';
     .put(checkAuth,editarEmpresa)
     .delete(checkAuth,eliminarEmpresa);
 
-    router.post('/agregar-colaborador/:id', checkAuth , agregarColaborador)
-    router.post('/eliminar-colaborador/:id', checkAuth , eliminarColaborador)
+    router.post('/colaboradores', checkAuth, buscarColaborador)
+    router.post('/colaboradores/:id', checkAuth , agregarColaborador)
+    router.post('/eliminar-colaboradore/:id', checkAuth , eliminarColaborador)
 
     
 

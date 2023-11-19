@@ -15,7 +15,10 @@ const EmpresasProvider = ({children}) => {
     const [ modalFormularioStaff , setModalFormularioStaff ] = useState(false)
     const [ tarea, setTarea] =  useState({})
     const [ modalEliminarCuenta , setModalEliminarCuenta]= useState(false)
-
+    const [ formularioColaborador, setformularioColaborador ]= useState(false)
+    const [ colaborador, setColaborador] = useState({})
+    const [ modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
+    
 
 
     useEffect(() => {
@@ -45,6 +48,8 @@ const EmpresasProvider = ({children}) => {
 
         }
         obtenerProyectos()
+   
+        
 
     },[])
 
@@ -178,7 +183,12 @@ const EmpresasProvider = ({children}) => {
             
         } catch (error) {
 
-            console.log(error)
+            setAlerta({
+                msg: error.response.data.msg,
+                error: true
+
+
+            })
             
         } finally{
             setCargando(false)
@@ -382,6 +392,157 @@ const EmpresasProvider = ({children}) => {
 
 
 
+    const handleModalPersonal = () => {
+            setformularioColaborador(!formularioColaborador)
+
+    }
+
+
+    const submitColaborador = async email =>{
+
+        setCargando(true)
+       try {
+
+        const token = localStorage.getItem('token')
+            if(!token) return
+    
+                const config = {
+                    headers: {
+    
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+    
+    
+                }
+
+                const { data} = await clienteAxios.post('/empresas/colaboradores',{email}, config)
+
+
+
+
+
+               
+
+                setColaborador(data)
+                setAlerta({})
+        
+       } catch (error) {
+        setAlerta({
+
+
+            msg: error.response.data.msg,
+            error: true
+        })
+       } finally {
+        setCargando(false)
+       }
+    }
+
+
+    const agregarColaborador = async email => {
+        
+
+        try {
+
+            const token = localStorage.getItem('token')
+                if(!token) return
+        
+                    const config = {
+                        headers: {
+        
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+        
+        
+                    }
+
+                    const {data} = await clienteAxios.post(`/empresas/colaboradores/${empresa._id}`,email, config)
+                  setAlerta({
+
+                    msg: data.msg,
+                    error: false
+                  })
+
+
+// AGREGAR COLABORADPRES AL STATE 
+                       
+                        const empresaActualizada = { ...empresa };
+                        empresaActualizada.colaboradores = [...empresa.colaboradores, data]; // data es el nuevo colaborador
+
+                        setEmpresa(empresaActualizada);
+                        setAlerta({});
+                        
+// AGREGAR COLABORADPRES AL STATE 
+
+                  ////
+                  setColaborador({})
+                  setAlerta({})
+                  setformularioColaborador(false)
+                  
+                  
+            
+        } catch (error) {
+            setAlerta({
+
+                msg: error.response.data.msg,
+                error: true
+            })
+            
+        }
+    }
+
+
+    const handleModalEliminarColaborador = (colaborador) =>{
+
+        setModalEliminarColaborador(!modalEliminarColaborador)
+        setColaborador(colaborador)
+    }
+
+
+    const eliminarColaborador = async () => {
+        try {
+
+            const token = localStorage.getItem('token')
+                if(!token) return
+        
+                    const config = {
+                        headers: {
+        
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+        
+                       
+                    }
+
+                    const {data} = await clienteAxios.post(`/empresas/eliminar-colaboradore/${empresa._id}`,{id: colaborador._id}, config)
+                    
+                    const empresaActualizada = {...empresa}
+                    empresaActualizada.colaboradores = empresaActualizada.colaboradores.filter(colaboradorState  => colaboradorState._id !== colaborador._id)
+
+                    setEmpresa(empresaActualizada)
+
+                    setAlerta({
+                        msg: data.msg,
+                        error: false
+
+                    })
+
+                    setColaborador({})
+                    setModalEliminarColaborador(false)
+                    setAlerta({})
+            
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
+
+
+
+
     return (
 
         <EmpresasContext.Provider
@@ -403,7 +564,15 @@ const EmpresasProvider = ({children}) => {
                 tarea,
                 modalEliminarCuenta,
                 hadleModalEliminarCuenta,
-                eliminarCuenta
+                eliminarCuenta,
+                formularioColaborador,
+                handleModalPersonal,
+                submitColaborador,
+                colaborador,
+                agregarColaborador,
+                handleModalEliminarColaborador,
+                modalEliminarColaborador,
+                eliminarColaborador
                 
                 
             }}
