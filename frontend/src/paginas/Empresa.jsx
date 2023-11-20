@@ -223,6 +223,7 @@ import React, { useState } from 'react';
 import { useParams,Link } from 'react-router-dom';
 import { useEffect} from 'react';
 import useEmpresas from '../hooks/useEmpresas';
+import useAdmin from '../hooks/useAdmin';
 import ModalFormularioStaff from '../components/ModalFormularioStaff';
 import ModalEliminarCuenta from '../components/ModalEliminarCuenta';
 import CuentasBank from '../components/CuentasBank';
@@ -238,7 +239,10 @@ import Colaborador from '../components/Colaborador';
 export default function Empresa() {
   const params = useParams();
   const { obtenerEmpresa, empresa, cargando,handleModalStaff,alerta,handleModalPersonal } = useEmpresas();
-
+ 
+ 
+  const admin = useAdmin()
+ 
 
   const [ modal, setModal] = useState(false)
   
@@ -272,10 +276,17 @@ export default function Empresa() {
     
   } = empresa;
 
+ 
+
   const{msg}= alerta
 
+
+
   return (
+
+   
     <div>
+     
       {cargando ? (
         <div className="flex items-center justify-center">
           <button type="button" className="bg-green-600 text-white py-2 px-4 rounded" disabled>
@@ -297,6 +308,8 @@ export default function Empresa() {
             <h1 className="text-4xl font-semibold leading-7 text-gray-900">{nombre}</h1>
             <p className="mt-1 max-w-2xl text-2xl leading-6 text-gray-500">{descripcion}</p>
             </div>
+            
+            {admin && (
             <div className='flex items-center gap-2 text-gray-500 hover:text-black'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
@@ -309,7 +322,7 @@ export default function Empresa() {
             Update Data
             </Link>
             </div>
-
+         )}
 
             
 
@@ -687,21 +700,21 @@ export default function Empresa() {
     </table>
   </div>
 </div>
-
-<button
-  onClick={handleModalStaff}
-  type='button'
-  className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
->
-  <span className="mr-2">Create Account</span>
-  <span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  </span>
-</button>
-
-        {/* <div className="mt-6 border-b border-gray-900/10 pb-12">
+{admin && ( 
+          <button
+            onClick={handleModalStaff}
+            type='button'
+            className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
+          >
+            <span className="mr-2">Create Account</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+          </button>
+)
+        /* <div className="mt-6 border-b border-gray-900/10 pb-12">
   <h2 className="text-base font-semibold leading-7 text-gray-900">Bankset</h2>
 
   <div className="overflow-x-auto">
@@ -834,42 +847,41 @@ No hay cuentas bancarias de esta empresa
   
 </div>
 
-<div className='flex items-center justify-between ' >
-  <h2 className="text-base font-semibold leading-7 text-gray-900">Staff Company</h2>
-
-  {/* <Link
-  to={`/empresas/nuevo-colaborador/${empresa._id}`}
-  className='text-gray-400 uppercase hover:text-black font-bold'
-  >
-  AGREGAR 
-  </Link>
-</div> */}
 
 
-<button
-  onClick={handleModalPersonal}
-  type='button'
-  className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
->
-  <span className="mr-2">Add Staff</span>
-  <span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  </span>
-</button>
+<div className='flex items-center justify-between' >
+
+<div className="border-t-4 border-indigo-500 ..."></div>
+<h1 className="text-4xl font-semibold leading-7 text-gray-900 mt-7 mb-6"> Staff Asigned</h1>
+  
+{admin && ( 
+          <button
+            onClick={handleModalPersonal}
+            type='button'
+            className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
+          >
+            <span className="mr-2">Add Staff</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+          </button>
+)}
+
 </div>
 
-<FormularioColaborador
 
-/>
+
+<FormularioColaborador/>
+
+
 
 
 <div>  {empresa.colaboradores?.length ? empresa.colaboradores?.map(colaborador => (
  <Colaborador
   key={colaborador._id}
   colaborador={colaborador}
-
 
  
  />
@@ -945,5 +957,8 @@ No staff assigned
 
       )}
     </div>
+    
   )
+  
+
 }

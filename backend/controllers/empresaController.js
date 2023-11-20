@@ -6,7 +6,15 @@ import Usuario from "../models/Usuario.js";
 const obtenerEmpresas = async (req, res) => {
 
     //const empresas = await Empresa.find(); // me sirve para admin trae todos los proyectos de todos 
-    const empresas = await Empresa.find().where('creador').equals(req.usuario).select('-tareas')// trae las empresas solo lo del usuario que logea 
+    const empresas = await Empresa.find({
+        '$or' : [
+
+            {'colaboradores': {$in: req.usuario}},
+            {'creador': {$in: req.usuario} }
+
+        ]
+
+    }).select('-tareas')// trae las empresas solo lo del usuario que logea 
     res.json(empresas)
 
 }
@@ -32,7 +40,8 @@ try {
 const obtenerEmpresa = async (req, res) => {
 
 const {id} = req.params;
-const empresa = await Empresa.findById(id).populate('tareas').populate('colaboradores', 'nombre email')
+const empresa = await Empresa.findById(id).populate({ path: 'tareas', 
+populate: {path: 'completado', select: 'nombre'}}).populate('colaboradores', 'nombre email')
 
 
 
@@ -42,7 +51,8 @@ if(!empresa) {
     return res.status(404).json({msg: error.message})
    
 }
-if(empresa.creador.toString() !== req.usuario._id.toString()){ // con esto traigo solo el proyecto que creo vada usuario
+if(empresa.creador.toString() !== req.usuario._id.toString() 
+&& !empresa.colaboradores.some(colaborador => colaborador._id.toString() === req.usuario._id.toString())){ // con esto traigo solo el proyecto que creo vada usuario
 
     const error = new Error (' No tienes acceso a esta empresa');
     return res.status(401).json({msg: error.message})

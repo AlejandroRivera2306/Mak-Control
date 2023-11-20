@@ -105,15 +105,15 @@ const FormularioColaborador = () => {
                                         <div className='mb-5'>
 
                                         <label
-                                        className='text-gray-700 uppercase font-bold text-sm '
+                                        className='text-gray-700 uppercase font-bold text-lg '
                                         htmlFor='email'
                                         >
-                                        Email Staff
+                                        User
                                         </label>
                                         <input
                                         type='email'
                                         id='email'
-                                        placeholder='email'
+                                        placeholder='user email'
                                         className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -128,31 +128,31 @@ const FormularioColaborador = () => {
                                       className='bg-green-500 hover:bg-green-700 
                                       w-full p-3 text-white uppercase font-bold cursor-pointer 
                                       transition-colors rounded-lg text-sm text-center'
-                                      value='Buscar Colaborador'
+                                      value='Search User'
                                       
                                       />
                                     { cargando ? 'Loading....' : colaborador?._id && (
                                         <div className='flex justify-beetween mt-10'>
-                                            <div className='bg-white py-10 px-2 md:w-full rounded-lg shadow'>
-                                            <p>{colaborador.nombre}</p>
+                                             <p>{colaborador.nombre}</p>
 
                                            <button
                                             type='button'
-                                            className='bg-slate-500 px-5 py-2 rounded-lg  text-white font-bold text-sm'
+                                            className='bg-slate-800 px-5 py-2 rounded-full  text-white font-bold text-sm ml-10'
                                             onClick={()=> agregarColaborador({
                                                 email: colaborador.email
 
                                             })}
 
-                                            > Add Staff
+                                            > Add <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                                          </svg>
+                                          
                                             </button>
-                                            </div>
+                                            
                                             
                                         </div>
 
                                     )}
-
-
 
 
                                     </form>

@@ -134,7 +134,13 @@ const eliminarTarea = async (req, res) => {
 
     try {
 
-    await tarea.deleteOne();
+    const empresa = await Empresa. findById(tarea.empresa)
+    empresa.tareas.pull(tarea._id)
+
+    await Promise.allSettled([  await empresa.save(),await tarea.deleteOne()])
+  
+
+    
     res.json({msg: "Account Delete"})
         
     } catch (error) {
@@ -146,6 +152,36 @@ const eliminarTarea = async (req, res) => {
 };
 
 const cambiarEstado = async (req, res) => {
+
+
+    const { id } = req.params;
+
+    const tarea = await Tarea.findById(id).populate("empresa");
+
+    if (!tarea) {
+        const error = new Error("TAREA NO ENCONTRADA");
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if (tarea.empresa.creador.toString() !== req.usuario._id.toString() && 
+    !tarea.empresa.colaboradores.some(
+        colaborador => colaborador._id.toString() === req.usuario._id.toString()) ) {
+
+
+
+        const error = new Error('Accion no valida');
+        return res.status(403).json({ msg: error.message });
+    }
+
+    tarea.estado = !tarea.estado;
+    tarea.completado = req.usuario._id
+    await tarea.save()
+
+    const tareaAlmacenada = await Tarea.findById(id).populate("empresa").populate("completado")
+
+    res.json(tareaAlmacenada)
+
+    
 
 }
 

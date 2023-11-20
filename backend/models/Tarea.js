@@ -48,6 +48,12 @@ const tareaSchema = mongoose.Schema({
         ref: "Empresa",
     },
 
+    completado: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario",
+
+    },
+
 }, {
 
     timestamps: true

@@ -101,10 +101,13 @@
 // export default PreviewEmpresa;
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const PreviewEmpresa = ({ empresa }) => {
   // const { nombre, _id, cliente, state, city, contract } = empresa;
 
+  const {auth} = useAuth()
+  
   const {
     nombre,
     _id,
@@ -128,7 +131,8 @@ const PreviewEmpresa = ({ empresa }) => {
     incometax,
     empleados,
     banksets,
-    contract
+    contract,
+    creador
     
   } = empresa;
 
@@ -158,13 +162,19 @@ const PreviewEmpresa = ({ empresa }) => {
           </thead> */}
           <tbody className='divide-y divide-gray-200'>
             <tr>
-              <td className='w-1/6 px-4 py-2 font-medium text-gray-900  bg-blue-200'>
+              <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-gray-800 rounded-md'>
                 {nombre}
               </td>
-              <td className='w-1/6 px-4 py-2 text-gray-700  bg-sky-300'>{closetax}</td>
-              <td className='w-1/6 px-4 py-2 text-gray-700 pr-6  bg-sky-100'>{state}</td>
-              <td className='w-1/6 px-4 py-2 text-gray-700 pr-6  bg-sky-200'>{city}</td>
-              <td className='w-1/6 px-4 py-2 text-gray-700 pr-6  bg-blue-100'>{contract}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-500 font-bold  '>{closetax}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold  '>{state}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold   '>{city}</td>
+              <td className='w-1/6 px-4 py-2 text-gray-500 pr-6  font-bold '>{contract}</td>
+              {auth._id !==creador && (
+
+            <td className='w-1/6 px-4 py-2 pr-6 text-sm text-green-700 rounded-lg font-bold uppercase'>Assigned</td>
+              )}
+              
+
               <td className='w-1/6 px-4 py-2'>
                 <Link
                   to={`${_id}`}

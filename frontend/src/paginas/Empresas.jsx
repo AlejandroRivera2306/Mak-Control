@@ -1,17 +1,16 @@
 import React from 'react'
 import useEmpresas from '../hooks/useEmpresas'
 import PreviewEmpresa from '../components/PreviewEmpresa'
+import Alerta from "../components/Alerta"
 
 const Empresas = () => {
-    const {empresas} = useEmpresas()
-    
+    const {empresas, alerta} = useEmpresas()
+     const {msg } = alerta
 
   return (
     <>
-    <h1 className=' text-4xl font-bold'>All Companies</h1> <span>  <input type="search"
-                        placeholder='Buscar empresa'
-                        className='rounded-lg lg:w-96 block p-2 border mr-2'
-                    /></span>
+    {msg && <Alerta  alerta={alerta}/>}
+    <h1 className=' text-4xl font-bold text-center text-gray-800 uppercase'>Companies</h1> 
     
 
     <div className=' bg-white shadow mt-10 rounded-lg p-5'>

@@ -18,6 +18,8 @@ const EmpresasProvider = ({children}) => {
     const [ formularioColaborador, setformularioColaborador ]= useState(false)
     const [ colaborador, setColaborador] = useState({})
     const [ modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
+    const [ buscador, setBuscador] = useState(false)
+
     
 
 
@@ -106,7 +108,7 @@ const EmpresasProvider = ({children}) => {
         
                     setTimeout(() => {
                         setAlerta({})
-                        navigate('/empresas')
+                         navigate('/empresas')
         
                     }, 3000)
 
@@ -180,8 +182,10 @@ const EmpresasProvider = ({children}) => {
 
             const { data} = await clienteAxios(`/empresas/${id}`, config)
             setEmpresa(data)
+            setAlerta({})
             
         } catch (error) {
+            navigate('/empresas')
 
             setAlerta({
                 msg: error.response.data.msg,
@@ -189,6 +193,10 @@ const EmpresasProvider = ({children}) => {
 
 
             })
+
+            setTimeout(() => {
+                setAlerta({})
+            }, 3000);
             
         } finally{
             setCargando(false)
@@ -472,13 +480,15 @@ const EmpresasProvider = ({children}) => {
                         empresaActualizada.colaboradores = [...empresa.colaboradores, data]; // data es el nuevo colaborador
 
                         setEmpresa(empresaActualizada);
-                        setAlerta({});
+                       
                         
 // AGREGAR COLABORADPRES AL STATE 
 
                   ////
                   setColaborador({})
-                  setAlerta({})
+                  setTimeout(() => {
+                    setAlerta({})
+                  }, 2000);
                   setformularioColaborador(false)
                   
                   
@@ -532,12 +542,82 @@ const EmpresasProvider = ({children}) => {
 
                     setColaborador({})
                     setModalEliminarColaborador(false)
-                    setAlerta({})
+                    setTimeout(() => {
+
+                        setAlerta({})
+                    },3000)
             
         } catch (error) {
             console.log(error.response)
         }
     }
+
+
+    // const completarTarea = async id => {
+
+    //     try {
+
+
+    //         const token = localStorage.getItem('token')
+    //             if(!token) return
+        
+    //                 const config = {
+    //                     headers: {
+        
+    //                         "Content-Type": "application/json",
+    //                         Authorization: `Bearer ${token}`
+    //                     }
+        
+                       
+    //                 }
+
+    //                 const {data} = clienteAxios.post(`/tareas/estado/${id}`, {} , config) 
+    //                 console.log(data)
+            
+    //     } catch (error) {
+
+    //         console.log(error.response)
+            
+    //     }
+
+    // }
+
+
+    const completarTarea = async (id) => {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) return;
+      
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          };
+      
+          const { data } = await clienteAxios.post(`/tareas/estado/${id}`, {}, config);
+          
+          const empresaActualizada = {...empresa} /// esta me puede servir xxxxxxxx
+          empresaActualizada.tareas = empresaActualizada.tareas.map(tareaState => 
+            tareaState._id === data._id ? data : tareaState  )
+
+            setEmpresa(empresaActualizada)
+            setTarea({})
+            setAlerta({})
+          // Puedes hacer algo con la respuesta 'data' aquí
+        } catch (error) {
+          console.log(error.response);
+          // Manejar errores aquí si es necesario
+        }
+      };
+      
+
+      const handleBuscador = ()  => {
+
+        setBuscador(!buscador)
+      }
+
+
 
 
 
@@ -572,7 +652,10 @@ const EmpresasProvider = ({children}) => {
                 agregarColaborador,
                 handleModalEliminarColaborador,
                 modalEliminarColaborador,
-                eliminarColaborador
+                eliminarColaborador,
+                completarTarea,
+                handleBuscador,
+                buscador
                 
                 
             }}
