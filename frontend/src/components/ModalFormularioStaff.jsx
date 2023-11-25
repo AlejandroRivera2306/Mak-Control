@@ -4,10 +4,11 @@ import useEmpresas from '../hooks/useEmpresas'
 import Alerta from './Alerta'
 import {useParams} from 'react-router-dom'
 
-
-
-const PRIORIDAD = ['Saving', 'Checking' ]
+const PRIORIDAD = ['Saving', 'Checking','TC' ]
 const BAKINFO = ['Banking Online', 'Customer Sends']
+const TIPODECIERRE =['Monthly', 'Quarterly']
+const FECHAENTREGA = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+
 
 const ModalFormularioStaff = () => {
   const [id, setId] = useState('');
@@ -16,110 +17,98 @@ const ModalFormularioStaff = () => {
   const [prioridad , setPrioridad] = useState('')
   const [fechaEntrega , setFechaEntrega] = useState('')
   const [infobank , setInfobank] = useState('')
+  const [tipodecierre, setTipodeCierre] = useState('')
+
+  const [showDateInput, setShowDateInput] = useState(true);
+  const [showFrequencyInput, setShowFrequencyInput] = useState(false);
 
   const params = useParams()
 
-  
-
   const {modalFormularioStaff , handleModalStaff, mostrarAlerta, alerta,submitCuenta, tarea} =useEmpresas();
 
-  useEffect(()=> {
-
-      if(tarea?._id){
-
-        setId(tarea._id)
-        setNombre(tarea.nombre)
-        setDescripcion(tarea.descripcion)
-        setPrioridad(tarea.prioridad)
-        setFechaEntrega(tarea.fechaEntrega?.split('T')[0])
-        setInfobank(tarea.infobank)
-        return
+  useEffect(() => {
+    if (tarea?._id) {
+      setId(tarea._id);
+      setNombre(tarea.nombre);
+      setDescripcion(tarea.descripcion);
+      setPrioridad(tarea.prioridad);
+    //   setFechaEntrega(tarea.fechaEntrega?.split('T')[0]);
+      setFechaEntrega(tarea.fechaEntrega);
+      setInfobank(tarea.infobank);
+      setTipodeCierre(tarea.tipodecierre);
+      if (tarea.prioridad === 'Saving' || tarea.prioridad === 'Checking') {
+        setShowDateInput(false);
+        setShowFrequencyInput(true);
+      } else if (tarea.prioridad === 'TC') {
+        setShowDateInput(true);
+        setShowFrequencyInput(false);
+       // Si cambias a 'TC', restablece la fecha de cierre
+        //  setFechaEntrega('');
       }
-      setId('')
-      setNombre('')
-      setDescripcion('')
-      setFechaEntrega('')
-      setPrioridad('')
-      setInfobank('')
-
-     
-
-  },[tarea])
-
-  // const handleSubmit =  async e => {
-
-  //   e.preventDefault();
-
-  //   if([nombre, descripcion, prioridad, fechaEntrega,infobank].includes('')){
-
-  //     mostrarAlerta({
-
-  //       msg: " Field Required",
-  //       error: true
-  //     })
-
-  //     return
-
-
-  //   }
-
-  //  await submitCuenta({ id, nombre, descripcion, prioridad,fechaEntrega,infobank, empresa:params.id})
-  //    setId('')
-  //    setNombre('')
-  //    setDescripcion('')
-  //    setFechaEntrega('')
-  //    setPrioridad('')
-  //    setInfobank('')
-
-  // }
+      return;
+    }
+    // Restablecer todos los campos si no hay tarea seleccionada
+    setId('');
+    setNombre('');
+    setDescripcion('');
+    setFechaEntrega('');
+    setPrioridad('');
+    setInfobank('');
+    setTipodeCierre('');
+  }, [tarea]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if ([nombre, descripcion, prioridad, fechaEntrega, infobank].includes('')) {
-        mostrarAlerta({
-            msg: "Field Required",
-            error: true
-        });
-        return;
+  
+    if ([nombre, descripcion, prioridad, infobank].includes('')) {
+      mostrarAlerta({
+        msg: "Field Required",
+        error: true
+      });
+      return;
     }
-
+  
     try {
-        if (id) {
-            // Actualizar cuenta existente
-            await submitCuenta({
-                id,
-                nombre,
-                descripcion,
-                prioridad,
-                fechaEntrega,
-                infobank,
-                empresa: params.id,
-            });
-        } else {
-            // Crear nueva cuenta
-            await submitCuenta({
-                nombre,
-                descripcion,
-                prioridad,
-                fechaEntrega,
-                infobank,
-                empresa: params.id,
-            });
-        }
-
-        // Limpiar campos después de enviar
-        setId('');
-        setNombre('');
-        setDescripcion('');
-        setFechaEntrega('');
-        setPrioridad('');
-        setInfobank('');
+      if (id) {
+        // Actualizar cuenta existente
+        await submitCuenta({
+          id,
+          nombre,
+          descripcion,
+          prioridad,
+          fechaEntrega: (prioridad === 'Saving' || prioridad === 'Checking') ? ' ' : fechaEntrega,
+          
+          infobank,
+          tipodecierre: (prioridad === 'TC' || tipodecierre === '') ? undefined : tipodecierre, // <-- Modificación aquí
+          empresa: params.id,
+        });
+      } else {
+        // Crear nueva cuenta
+        await submitCuenta({
+          nombre,
+          descripcion,
+          prioridad,
+          fechaEntrega: (prioridad === 'Saving' || prioridad === 'Checking') ? ' ' : fechaEntrega,
+        
+          infobank,
+          tipodecierre: (prioridad === 'TC' || tipodecierre === '') ? undefined : tipodecierre,// <-- Modificación aquí
+          empresa: params.id,
+        });
+      }
+  
+      // Limpiar campos después de enviar
+      setId('');
+      setNombre('');
+      setDescripcion('');
+      setFechaEntrega('');
+      setPrioridad('');
+      setInfobank('');
+      setTipodeCierre('');
     } catch (error) {
-        console.error("Error submitting account:", error);
+      console.error("Error submitting account:", error);
     }
-};
+  };
 
   
 
@@ -215,34 +204,46 @@ const ModalFormularioStaff = () => {
                                                 Account Number
                                             </label>
                                             <input
-                                            title='text'
-                                            id='descripcion'
-                                            placeholder='-XXXX'
-                                            className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                            value={descripcion}
-                                            onChange={(e) => setDescripcion(e.target.value)}
-                                            
-                                            />
+                                                    type='text'
+                                                    id='descripcion'
+                                                    placeholder='-XXXX'
+                                                    className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                    value={descripcion}
+                                                    onChange={(e) => {
+                                                        // Verificar la longitud del valor antes de actualizar el estado
+                                                        if (e.target.value.length <= 4) {
+                                                            setDescripcion(e.target.value);
+                                                        }
+                                                    }}
+                                                    maxLength={4} // Limita la cantidad máxima de caracteres a 4
+                                                />
+
+
+
+
                                       </div>
 
 
                                        <div className='mb-5'>
 
-                                            <label
-                                            className='text-gray-700 uppercase font-bold text-sm '
-                                            htmlFor='prioridad'
-                                            >
-                                                Account Type
-                                            </label>
-                                            <select
-                                          
-                                            id='prioridad'
-                                           
-                                            className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                            value={prioridad}
-                                            onChange={(e) => setPrioridad(e.target.value)}
-                                            
-                                            >
+                                       <label className='text-gray-700 uppercase font-bold text-sm ' htmlFor='prioridad'>
+          Account Type
+        </label>
+        <select
+          id='prioridad'
+          className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+          value={prioridad}
+          onChange={(e) => {
+            setPrioridad(e.target.value);
+            if (e.target.value === 'Saving' || e.target.value === 'Checking') {
+              setShowDateInput(false);
+              setShowFrequencyInput(true);
+            } else if (e.target.value === 'TC') {
+              setShowDateInput(true);
+              setShowFrequencyInput(false);
+            }
+          }}
+        >
                                             <option value=" "> --- Choose---</option>
 
                                             {PRIORIDAD.map(option => (
@@ -256,24 +257,76 @@ const ModalFormularioStaff = () => {
 
 
 
-                                      <div className='mb-5'>
 
-                                            <label
-                                            className='text-gray-700 uppercase font-bold text-sm '
-                                            htmlFor='fecha-entrega'
-                                            >
-                                                Date Closing
-                                            </label>
-                                            <input
-                                              type='date'
-                                              id='fecha-entrega'
-                                             
-                                              className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                              value={fechaEntrega}  
-                                              
-                                              onChange={(e) => setFechaEntrega(e.target.value)}
-                                          />
-                                      </div>
+
+                                      {showDateInput && (
+        
+        <div className='mb-5'>
+
+        <label
+        className='text-gray-700 uppercase font-bold text-sm '
+        htmlFor='fecha-entrega'
+        >
+            Day Closing
+        </label>
+        <select
+      
+        id='fecha-entrega'
+       
+        className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+        value={fechaEntrega}
+        onChange={(e) => setFechaEntrega(e.target.value)}
+        
+        >
+        <option value=" "> --- Choose---</option>
+
+        {FECHAENTREGA.map(option => (
+          <option key= {option}>{option}</option>
+
+        ))}
+
+        </select>
+        
+  </div>
+
+      
+      )}
+
+      {showFrequencyInput && (
+        <div className='mb-5'>
+        <div className='mb-5'>
+
+<label
+className='text-gray-700 uppercase font-bold text-sm '
+htmlFor='tipodecierre'
+>
+    Type Closing
+</label>
+<select
+
+id='tipodecierre'
+
+className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+value={tipodecierre}
+onChange={(e) => setTipodeCierre(e.target.value)}
+
+>
+<option value=" "> --- Choose---</option>
+
+{TIPODECIERRE.map(option => (
+<option key= {option}>{option}</option>
+
+))}
+
+</select>
+
+</div>
+        </div>
+      )}
+
+
+
+                                      
 
 
                                                 <div className='mb-5'>
@@ -304,14 +357,10 @@ const ModalFormularioStaff = () => {
                                             
                                       </div>
 
+                               
 
 
-
-
-
-
-
-
+                                      
 
                                       <input
                                       

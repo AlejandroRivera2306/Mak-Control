@@ -231,14 +231,20 @@ import Alerta from '../components/Alerta';
 import FormularioColaborador from '../components/FormularioColaborador';
 import ModalEliminarColaborador from '../components/ModalEliminarColaborador';
 
+import BuscarCuenta from '../components/BuscarCuenta';
+
 
 import { PaperClipIcon } from '@heroicons/react/20/solid';
 
 import Colaborador from '../components/Colaborador';
 
 export default function Empresa() {
+
+
+
+  
   const params = useParams();
-  const { obtenerEmpresa, empresa, cargando,handleModalStaff,alerta,handleModalPersonal } = useEmpresas();
+  const { obtenerEmpresa, empresa, cargando,handleModalStaff,alerta,handleModalPersonal ,handleBuscarCuenta} = useEmpresas();
  
  
   const admin = useAdmin()
@@ -285,8 +291,125 @@ export default function Empresa() {
   return (
 
    
-    <div>
+    <div >
      
+     <div>
+            <h1 className="text-3xl font-semibold leading-7 text-center text-gray-900">{nombre}</h1>
+            <p className="mt-1 max-w-1xl text-2xl leading-6 text-center text-gray-500">{descripcion}</p>
+<BuscarCuenta/>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-green-500" onClick={handleBuscarCuenta}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+
+
+        <div className='grid justify-items-end'>
+            {admin && (
+            <div className='flex items-center gap-2 text-gray-500 hover:text-black'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+              
+            <Link
+            to={`/empresas/editar/${params.id}`}
+            className= 'uppercase font-bold'
+            >
+            Update Data
+            </Link>
+            </div>
+         )}
+</div>
+    </div>
+
+
+     {admin && ( 
+          <button
+            onClick={handleModalStaff}
+            type='button'
+            className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
+          >
+            <span className="mr-2">Create Account</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+          </button>
+                )
+                }
+
+                <div className='bg-white shadow mt-10 rounded-lg'>
+                  {/* ...otros elementos */}
+                  <div className='flex justify-center'>
+                    {msg && <Alerta alerta={alerta} />}
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full  rounded-lg">
+                    
+
+                      {empresa.tareas?.length ? empresa.tareas?.map(tarea => (
+
+                <CuentasBank
+                key={tarea._id}
+                tarea={tarea}
+                />
+                )) : <p className='text-center my-5 p-10'>
+
+                No hay cuentas bancarias de esta empresa
+                </p> }
+                    </table>
+                  </div>
+                  
+                </div>
+
+
+
+<div className='bg-slate-700 mt-5  mb-6 rounded-md'>
+
+<div className='flex items-center justify-between' >
+
+<div className="border-solid border-3 border-green-600"></div>
+<h1 className="text-4xl font-semibold leading-7 mt-7 mb-6 text-green-500 "> Staff Asigned</h1>
+  
+{admin && ( 
+          <button
+            onClick={handleModalPersonal}
+            type='button'
+            className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
+          >
+            <span className="mr-2">Add Staff</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+          </button>
+)}
+
+</div>
+
+<FormularioColaborador/>
+
+<div className='text-green-600 font-bold '>  {empresa.colaboradores?.length ? empresa.colaboradores?.map(colaborador => (
+ <Colaborador
+  key={colaborador._id}
+  colaborador={colaborador} 
+ />
+
+)) : <p className='text-center my-5 p-10'>
+No staff assigned
+</p> }
+</div>
+</div>
+
+
+
+
+
+
+
+
+
       {cargando ? (
         <div className="flex items-center justify-center">
           <button type="button" className="bg-green-600 text-white py-2 px-4 rounded" disabled>
@@ -303,27 +426,13 @@ export default function Empresa() {
         </div>
       ) : (
         <div >
-          <div className="px-4 sm:px-0 flex justify-between">
+          <div className="px-4 sm:px-0 flex justify-around ">
             <div>
-            <h1 className="text-4xl font-semibold leading-7 text-gray-900">{nombre}</h1>
-            <p className="mt-1 max-w-2xl text-2xl leading-6 text-gray-500">{descripcion}</p>
+            <h1 className="text-4xl font-semibold leading-7 text-gray-900 text-center"> Company Information</h1>
+            <p className="mt-1 max-w-1xl text-2xl leading-6 text-gray-500 text-center">{nombre}</p>
             </div>
             
-            {admin && (
-            <div className='flex items-center gap-2 text-gray-500 hover:text-black'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
-
-            <Link
-            to={`/empresas/editar/${params.id}`}
-            className= 'uppercase font-bold'
-            >
-            Update Data
-            </Link>
-            </div>
-         )}
-
+            
             
 
             <ModalFormularioStaff
@@ -334,7 +443,7 @@ export default function Empresa() {
             <ModalEliminarColaborador/>
             
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6  ">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-gray-100 shadow-md  p-5 rounded-md">
             <div className="sm:col-span-3">
               <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900">
               Company name 
@@ -664,25 +773,20 @@ export default function Empresa() {
         </div>
 
         <div className="mt-6 border-b border-gray-900/10 pb-12">
-
-          
-
-          </div>
-
+          </div>      
           <div className="mt-6 border-b border-gray-900/10 pb-12">
-  <h2 className="text-base font-semibold leading-7 text-gray-900">Partners</h2>
-
+  <h2 className="font-semibold leading-7 text-gray-900  bg-gray-100 shadow-md rounded-md p-5 text-3xl ">Partners Information</h2>
   <div className="overflow-x-auto">
     <table className="mt-4 min-w-full divide-y divide-gray-200">
       <thead className="bg-gray-50">
         <tr>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
             Name
           </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-6 py-3 text-left font-medium text-gray-500  tracking-wider text-1xl ">
           Member
           </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-6 py-3 text-left  font-medium text-gray-500  tracking-wider text-1xl ">
             %
           </th>
         </tr>
@@ -691,206 +795,14 @@ export default function Empresa() {
         {empleados &&
           empleados.map((empleado, index) => (
             <tr key={index} className="text-sm text-gray-500">
-              <td className="px-6 py-4 whitespace-nowrap">{empleado.nombre}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{empleado.cargo}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{empleado.porcentaje}%</td>
+              <td className="px-6 py-4 whitespace-nowrap text-black text-1xl">{empleado.nombre}</td>
+              <td className="px-6 py-4 whitespace-nowrap   text-black text-1xl">{empleado.cargo}</td>
+              <td className="px-6 py-4 whitespace-nowrap  text-black text-1xl">{empleado.porcentaje}%</td>
             </tr>
           ))}
       </tbody>
     </table>
   </div>
-</div>
-{admin && ( 
-          <button
-            onClick={handleModalStaff}
-            type='button'
-            className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
-          >
-            <span className="mr-2">Create Account</span>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </span>
-          </button>
-)
-        /* <div className="mt-6 border-b border-gray-900/10 pb-12">
-  <h2 className="text-base font-semibold leading-7 text-gray-900">Bankset</h2>
-
-  <div className="overflow-x-auto">
-    <table className="mt-4 min-w-full divide-y divide-gray-200">
-      <thead className="bg-gray-50">
-        <tr>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Account Number
-          </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Name Bank
-          </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Account Type
-          </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Information Account
-          </th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-200">
-        {banksets &&
-          banksets.map((bankset, index) => (
-            <tr key={index} className="text-sm text-gray-500">
-              <td className="px-6 py-4 whitespace-nowrap">{bankset.accountNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{bankset.bankName}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{bankset.accountType}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{bankset.bankInfo}</td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
-  </div>
-</div> */}
-
-
-
-  
-  {/* <div className='bg-white shadow mt-10 rounded-lg '> 
-  
-
-  
- <div className='felx justify-center'>
-
- 
-  {msg && <Alerta alerta={alerta}/>}
- 
- 
- </div>
-  
-  <thead className="bg-gray-50 w-full ">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nombre
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Descripción
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Prioridad
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Fecha de Entrega
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Info Bancaria
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-    {empresa.tareas?.length ? empresa.tareas?.map(tarea => (
-
-      <CuentasBank
-       key={tarea._id}
-       tarea={tarea}
-      />
-    )) : <p className='text-center my-5 p-10'>
-
-    No hay cuentas bancarias de esta empresa
-    </p> }
-
-  </div> */}
-
-
-<div className='bg-white shadow mt-10 rounded-lg'>
-  {/* ...otros elementos */}
-  <div className='flex justify-center'>
-    {msg && <Alerta alerta={alerta} />}
-  </div>
-
-  <div className="overflow-x-auto">
-    <table className="w-full  rounded-lg">
-      <thead className="bg-gray-50 w-full block ">
-        <tr>
-          <th className="w-1/6 px-3 py-5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Nombre
-          </th>
-          <th className="w-1/6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Descripción
-          </th>
-          <th className="w-1/6  text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-            Prioridad
-          </th>
-          <th className="w-1/6 px-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Fecha de Entrega
-          </th>
-          <th className="w-1/5 px-10 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Info Bancaria
-          </th>
-          <th className="w-1/5 px-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-           
-          </th>
-        </tr>
-      </thead>
-
-      {empresa.tareas?.length ? empresa.tareas?.map(tarea => (
-
-<CuentasBank
- key={tarea._id}
- tarea={tarea}
-/>
-)) : <p className='text-center my-5 p-10'>
-
-No hay cuentas bancarias de esta empresa
-</p> }
-    </table>
-  </div>
-  
-</div>
-
-
-
-<div className='flex items-center justify-between' >
-
-<div className="border-t-4 border-indigo-500 ..."></div>
-<h1 className="text-4xl font-semibold leading-7 text-gray-900 mt-7 mb-6"> Staff Asigned</h1>
-  
-{admin && ( 
-          <button
-            onClick={handleModalPersonal}
-            type='button'
-            className='flex items-center justify-center p-3 mb-4 mt-3 text-lg font-semibold bg-green-500 text-white rounded-full hover:bg-green-700 transition-colors duration-300'
-          >
-            <span className="mr-2">Add Staff</span>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </span>
-          </button>
-)}
-
-</div>
-
-
-
-<FormularioColaborador/>
-
-
-
-
-<div>  {empresa.colaboradores?.length ? empresa.colaboradores?.map(colaborador => (
- <Colaborador
-  key={colaborador._id}
-  colaborador={colaborador}
-
- 
- />
-
-
-)) : <p className='text-center my-5 p-10'>
-
-No staff assigned
-</p> }
 </div>
 
 
@@ -898,16 +810,16 @@ No staff assigned
 
 
 <div className="mt-6 border-b border-gray-900/10 pb-12">
-  <h2 className="text-base font-semibold leading-7 text-gray-900">Services</h2>
+  <h2 className=" font-semibold leading-7 text-gray-900  bg-gray-100 shadow-md rounded-md p-5 text-3xl">Services</h2>
 
   <div className="overflow-x-auto">
     <table className="mt-4 min-w-full divide-y divide-gray-200">
       <thead className="bg-gray-50">
         <tr>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
             Service
           </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
             Details
           </th>
         </tr>
@@ -937,28 +849,8 @@ No staff assigned
     </table>
   </div>
 </div>
-
-
-
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <input
-            type="submit"
-            value="Edit"
-            className='bg-green-500 w-full p-3 uppercase font-bold text-white 
-            rounded-md cursor-pointer hover:bg-green-800 transition-colors'
-            
-            />
-         </div>
-
-
         </div>
-
-
-
       )}
     </div>
-    
   )
-  
-
 }

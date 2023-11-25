@@ -533,7 +533,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 text-white ">
+    <header className="bg-gray-50 text-black ">
       <Busqueda/>
       <nav className="container mx-auto flex items-center justify-between py-4 flex-col md:flex-row">
         <div className="flex items-center space-x-4  ">
@@ -583,7 +583,7 @@ const Header = () => {
 </svg>
 
           <svg
-            className="h-8 w-8 text-white"
+            className="h-6 w-6 text-black"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -595,7 +595,7 @@ const Header = () => {
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
             />
           </svg>
-          <h2 className="text-white">{auth.nombre}</h2>
+          <h2 className="text-green-600">{auth.nombre}</h2>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
         </svg>

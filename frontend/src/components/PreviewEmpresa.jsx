@@ -162,7 +162,7 @@ const PreviewEmpresa = ({ empresa }) => {
           </thead> */}
           <tbody className='divide-y divide-gray-200'>
             <tr>
-              <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-gray-800 rounded-md'>
+              <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-green-500 rounded-md'>
                 {nombre}
               </td>
               <td className='w-1/6 px-4 py-2 text-gray-500 font-bold  '>{closetax}</td>
@@ -178,7 +178,7 @@ const PreviewEmpresa = ({ empresa }) => {
               <td className='w-1/6 px-4 py-2'>
                 <Link
                   to={`${_id}`}
-                  className='inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700'
+                  className='inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700'
                 >
                   View
                 </Link>

@@ -20,6 +20,8 @@ const EmpresasProvider = ({children}) => {
     const [ modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
     const [ buscador, setBuscador] = useState(false)
 
+    const [ buscadorcuenta, setBuscadorCuenta] = useState(false)
+
     
 
 
@@ -618,6 +620,12 @@ const EmpresasProvider = ({children}) => {
       }
 
 
+      const handleBuscarCuenta =() => {
+
+        setBuscadorCuenta(!buscadorcuenta)
+      }
+
+
 
 
 
@@ -655,7 +663,10 @@ const EmpresasProvider = ({children}) => {
                 eliminarColaborador,
                 completarTarea,
                 handleBuscador,
-                buscador
+                buscador,
+                handleBuscarCuenta,
+                buscadorcuenta
+
                 
                 
             }}

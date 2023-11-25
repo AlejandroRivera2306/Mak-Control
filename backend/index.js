@@ -6,6 +6,7 @@ import conectarDB from "./config/db.js";
 import usuarioRoutes from './routes/usuarioRoutes.js';
 import empresaRoutes from './routes/empresaRoutes.js';
 import tareaRoutes from './routes/tareaRoutes.js';
+import rolRoutes from './routes/rolRoutes.js';
 
 
 
@@ -38,7 +39,7 @@ app.use(cors(corsOptions))
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/empresas", empresaRoutes);
 app.use("/api/tareas", tareaRoutes);
-
+app.use("/api/rol", rolRoutes);
 
 
 
