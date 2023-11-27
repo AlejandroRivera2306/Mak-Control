@@ -174,4 +174,85 @@ const perfil = async (req, res) => {
 
 }
 
-export { registrar, autenticar,confirmar, olvidePassword, comprobarToken,nuevoPassword,perfil};
+const editarUsuario = async (req, res) => {
+    const {id} = req.params;
+    const usuario = await Usuario.findById(id)
+    
+    if(!usuario) {
+    
+        const error = new Error (' No encontrado');
+        return res.status(404).json({msg: error.message})
+       
+    }
+    
+    usuario.nombre = req.body.nombre || usuario.nombre;
+    usuario.confirmado = req.body.confirmado || usuario.confirmado;
+   
+    
+    try {
+    
+        const usuarioAlmacenada  = await usuario.save()
+        res.json(usuarioAlmacenada);
+        
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+    
+
+};
+
+const eliminarUsuario = async (req, res) => {
+
+    const {id} = req.params;
+    const usuario = await Usuario.findById(id)
+    
+    if(!usuario) {
+    
+        const error = new Error (' No encontrado');
+        return res.status(404).json({msg: error.message})
+       
+    }
+
+    try {
+        await usuario.deleteOne();
+        res.json({msg:"User Deleted"})
+        
+    } catch (error) {
+
+        console.log(error)
+    }
+
+
+};
+
+const obtenerUsuarios = async (req, res) => {
+
+    const usuarios = await Usuario.find().select('confirmado nombre');
+    res.json(usuarios)
+
+}
+
+
+const obtenerUsuario = async (req, res) => {
+
+    const {id} = req.params;
+    const usuario = await Usuario.findById(id)
+
+
+
+    if(!usuario) {
+
+        const error = new Error (' No encontrado');
+        return res.status(404).json({msg: error.message})
+    
+    }
+
+    res.json(
+        usuario,
+
+    );
+}
+
+export { registrar, autenticar,confirmar, olvidePassword, comprobarToken,nuevoPassword,perfil, editarUsuario, eliminarUsuario, obtenerUsuario, obtenerUsuarios};

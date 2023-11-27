@@ -1,37 +1,16 @@
-
-
-
-
-
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const rolSchema = mongoose.Schema({
-
-
-    nombrerol:{
-        type: String,
-        required: true,
-        enum: ["Admin", "Audit", "Recon", "Analyst"],
-    },
-
-    empresa:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Empresa",
-    },
-
-    usuario: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario",
-
-    },
-
+const rolSchema = new Schema({
+  nombre: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  // Otros campos específicos de los roles
 }, {
-
-    timestamps: true
-
+  timestamps: true
 });
 
-const Rol = mongoose.model("Rol", rolSchema );
+const Rol = mongoose.model('Rol', rolSchema);
 export default Rol;
-
-

@@ -1,7 +1,20 @@
 import express from "express";
 const router = express.Router();
 
-import {registrar, autenticar, confirmar, olvidePassword,comprobarToken, nuevoPassword,perfil} from "../controllers/usuarioController.js"
+import {
+    registrar, 
+    autenticar, 
+    confirmar, 
+    olvidePassword,
+    comprobarToken, 
+    nuevoPassword, 
+    perfil, 
+    editarUsuario, 
+    eliminarUsuario, 
+    obtenerUsuario, 
+    obtenerUsuarios,
+} from "../controllers/usuarioController.js"
+
 import checkAuth from "../middleware/checkAuth.js";
 
 
@@ -14,7 +27,20 @@ router.post('/olvide-password', olvidePassword);
 router.route('/olvide-password/:token').get(comprobarToken).post(nuevoPassword)
 router.get('/perfil', checkAuth,perfil);
 
+/*router
+    .route('/')
+    .get(checkAuth,obtenerUsuarios)
+*/
 
+router.get('/', checkAuth,obtenerUsuarios)
+
+router
+    .route('/:id')
+    .get(checkAuth,obtenerUsuario)
+    .put(checkAuth,editarUsuario)
+    .delete(checkAuth,eliminarUsuario);
+
+router.get('/', checkAuth,obtenerUsuario)
 
 
 
