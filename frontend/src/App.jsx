@@ -13,6 +13,9 @@ import Empresa from './paginas/Empresa'
 import EditarEmpresa from './paginas/EditarEmpresa'
 import {AuthProvider} from './context/AuthProvider'
 import { EmpresasProvider } from './context/EmpresasProvider'
+import Usuarios from './paginas/Usuarios'
+import Evaluaciones from './paginas/Evaluaciones'
+import { UsuariosProvider } from './context/UsuariosProvider'
 
 
 
@@ -22,33 +25,40 @@ function App() {
 
   return (
    <BrowserRouter>
-   <AuthProvider>
-    <EmpresasProvider>
-    <Routes>
+    <AuthProvider>
+      <EmpresasProvider>
+      <UsuariosProvider>
+        <Routes>
+          <Route path="/" element={<AuthLayout />}>
+            <Route index element={<Login/>}/>
+            <Route path="registrar" element={<Registrar/>}/>
+            <Route path="olvide-password" element={<OlvidePassword/>}/>
+            <Route path="olvide-password/:token" element={<NuevoPassword/>}/>
+            <Route path="confirmar/:id" element={<ConfirmarCuenta/>}/>
+          </Route>
+          
+          <Route path="/empresas" element={<RutaProtegida/>}>
+            <Route index element={<Empresas/>} />
+            <Route path='crear-empresa' element={<NuevaEmpresa/>}/>
+            <Route path='nuevo-colaborador/:id' element={<NuevoColaborador/>}/>
+            <Route path=':id' element={<Empresa/>}/>
+            <Route path='editar/:id' element={<EditarEmpresa/>}/>
+          </Route>
 
-      <Route path="/" element={<AuthLayout />}>
-        <Route index element={<Login/>}/>
-        <Route path="registrar" element={<Registrar/>}/>
-        <Route path="olvide-password" element={<OlvidePassword/>}/>
-        <Route path="olvide-password/:token" element={<NuevoPassword/>}/>
-        <Route path="confirmar/:id" element={<ConfirmarCuenta/>}/>
-      </Route>
-        <Route path="/empresas" element={<RutaProtegida/>}>
-        <Route index element={<Empresas/>} />
-        <Route path='crear-empresa' element={<NuevaEmpresa/>}/>
-        <Route path='nuevo-colaborador/:id' element={<NuevoColaborador/>}/>
-        <Route path=':id' element={<Empresa/>}/>
-        <Route path='editar/:id' element={<EditarEmpresa/>}/>
+         
+            <Route path="/usuarios" element={<RutaProtegida/>}>
+              <Route index element={<Usuarios/>} />
+            </Route>
+            <Route path="/evaluaciones" element={<RutaProtegida/>}>
+              <Route index element={<Evaluaciones/>} />
+            </Route>
 
+        </Routes>
+        </UsuariosProvider> 
+      </EmpresasProvider>
 
-     
-        
-      </Route>
+    
 
-       
-
-    </Routes>
-    </EmpresasProvider>
     </AuthProvider>
    
    </BrowserRouter>

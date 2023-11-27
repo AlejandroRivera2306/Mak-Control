@@ -367,7 +367,7 @@
 // };
 // export default CuentasBank;
 
-
+import React from 'react';
 import useEmpresas from '../hooks/useEmpresas';
 import useAdmin from '../hooks/useAdmin';
 
@@ -404,6 +404,7 @@ const CuentasBank = ({ tarea }) => {
               <th className="px-4 py-2 text-gray-400">Bank Information</th>
               <th className="px-4 py-2 text-gray-400">Download Info</th>
               <th className="px-4 py-2 text-gray-400">Reconciliador</th>
+              <th className="px-4 py-2 text-gray-400">Analyst</th>
               <th className="px-4 py-2 text-gray-400">Actions</th>
               
 
@@ -416,8 +417,27 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">{prioridad}</td>
               <td className="border px-4 py-2 text-center">{tipodecierre || (showFechaEntrega && fechaEntrega)}</td>
               <td className="border px-4 py-2 text-center">{infobank}</td>
-              <td className="border px-4 py-2 text-center">...</td>
-              <td className="border px-4 py-2 text-center">... </td>
+              <td className="border px-4 py-2 text-center">
+                  <button
+                    className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
+                  >
+                    ...
+                  </button>
+              </td>
+              <td className="border px-4 py-2 text-center">
+                <button
+                    className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
+                  >
+                    ...
+                  </button>
+              </td>
+              <td className="border px-4 py-2 text-center">
+                <button
+                    className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
+                  >
+                    ...
+                </button>
+              </td>
               <td className="border px-4 py-2 flex space-x-2 ">
                 {admin && (
                   <button

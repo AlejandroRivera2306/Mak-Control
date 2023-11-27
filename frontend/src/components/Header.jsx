@@ -559,6 +559,32 @@ const Header = () => {
                     {tab}
                   </button>
                 </Link>
+                ) : tab === 'Staff' ? (
+                <Link to="/usuarios">
+                  <button
+                    className={`${
+                      activeTab === tab
+                        ? 'text-white border border-white rounded-full p-2 bg-green-500'
+                        : 'hover:text-green-500 hover:bg-white border border-white rounded-full p-2 transition-all duration-300'
+                    }`}
+                    onClick={() => handleTabClick(tab)}
+                  >
+                    {tab}
+                  </button>
+                </Link>    
+                ) : tab === 'Evaluation' ? (
+                <Link to="/evaluaciones">
+                  <button
+                    className={`${
+                      activeTab === tab
+                        ? 'text-white border border-white rounded-full p-2 bg-green-500'
+                        : 'hover:text-green-500 hover:bg-white border border-white rounded-full p-2 transition-all duration-300'
+                    }`}
+                    onClick={() => handleTabClick(tab)}
+                  >
+                    {tab}
+                  </button>
+                </Link>                    
               ) : (
                 <button
                   className={`${
@@ -574,6 +600,7 @@ const Header = () => {
             </li>
           ))}
         </ul>
+        
         <div className="flex items-center space-x-2">
 
 
