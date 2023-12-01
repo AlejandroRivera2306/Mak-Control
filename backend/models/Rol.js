@@ -1,3 +1,6 @@
+
+
+
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
@@ -14,3 +17,4 @@ const rolSchema = new Schema({
 
 const Rol = mongoose.model('Rol', rolSchema);
 export default Rol;
+

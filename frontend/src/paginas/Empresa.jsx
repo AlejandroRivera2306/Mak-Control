@@ -251,6 +251,11 @@ export default function Empresa() {
  
 
   const [ modal, setModal] = useState(false)
+
+
+ 
+
+
   
 
   useEffect(() => {
@@ -296,27 +301,14 @@ export default function Empresa() {
      <div>
             <h1 className="text-3xl font-semibold leading-7 text-center text-gray-900">{nombre}</h1>
             <p className="mt-1 max-w-1xl text-2xl leading-6 text-center text-gray-500">{descripcion}</p>
-<BuscarCuenta/>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-green-500" onClick={handleBuscarCuenta}>
-  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
+        <BuscarCuenta/>
+            {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-green-500" onClick={handleBuscarCuenta}>
+           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg> */}
 
 
         <div className='grid justify-items-end'>
-            {admin && (
-            <div className='flex items-center gap-2 text-gray-500 hover:text-black'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
-              
-            <Link
-            to={`/empresas/editar/${params.id}`}
-            className= 'uppercase font-bold'
-            >
-            Update Data
-            </Link>
-            </div>
-         )}
+            
 </div>
     </div>
 
@@ -357,19 +349,22 @@ export default function Empresa() {
 
                 No hay cuentas bancarias de esta empresa
                 </p> }
+
+
                     </table>
                   </div>
+
                   
                 </div>
 
 
 
-<div className='bg-slate-700 mt-5  mb-6 rounded-md'>
+<div className='bg-gradient-to-r from-green-600 to-green-100 mt-5  mb-6 rounded-md'>
 
 <div className='flex items-center justify-between' >
 
-<div className="border-solid border-3 border-green-600"></div>
-<h1 className="text-4xl font-semibold leading-7 mt-7 mb-6 text-green-500 "> Staff Asigned</h1>
+<div className="border-solid border-3 border-green-600 "></div>
+<h1 className="text-4xl font-semibold leading-7 mt-7 mb-6 text-green-950 "> Staff Asigned</h1>
   
 {admin && ( 
           <button
@@ -430,6 +425,21 @@ No staff assigned
             <div>
             <h1 className="text-4xl font-semibold leading-7 text-gray-900 text-center"> Company Information</h1>
             <p className="mt-1 max-w-1xl text-2xl leading-6 text-gray-500 text-center">{nombre}</p>
+
+            {admin && (
+            <div className='flex items-center gap-2 text-gray-500 hover:text-black justify-end mt-7'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+            </svg>
+              
+            <Link
+            to={`/empresas/editar/${params.id}`}
+            className= 'uppercase font-bold'
+            >
+            Update Data
+            </Link>
+            </div>
+         )}
             </div>
             
             
@@ -443,7 +453,7 @@ No staff assigned
             <ModalEliminarColaborador/>
             
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-gray-100 shadow-md  p-5 rounded-md">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-gradient-to-r from-gray-300 to-gray-100 shadow-md  p-5 rounded-md">
             <div className="sm:col-span-3">
               <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900">
               Company name 
@@ -775,11 +785,11 @@ No staff assigned
         <div className="mt-6 border-b border-gray-900/10 pb-12">
           </div>      
           <div className="mt-6 border-b border-gray-900/10 pb-12">
-  <h2 className="font-semibold leading-7 text-gray-900  bg-gray-100 shadow-md rounded-md p-5 text-3xl ">Partners Information</h2>
-  <div className="overflow-x-auto">
+  <h2 className="font-semibold leading-7 text-gray-900  bg-gray-100 p-5 mb-2 rounded-md text-3xl ">Partners Information</h2>
+  <div className="overflow-x-auto bg-gradient-to-r from-gray-300 to-gray-100 shadow-md  p-5 rounded-md">
     <table className="mt-4 min-w-full divide-y divide-gray-200">
-      <thead className="bg-gray-50">
-        <tr>
+      <thead className="bg-gray-50 rounded-md">
+        <tr className='rounded-md'>
           <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
             Name
           </th>
@@ -812,8 +822,8 @@ No staff assigned
 <div className="mt-6 border-b border-gray-900/10 pb-12">
   <h2 className=" font-semibold leading-7 text-gray-900  bg-gray-100 shadow-md rounded-md p-5 text-3xl">Services</h2>
 
-  <div className="overflow-x-auto">
-    <table className="mt-4 min-w-full divide-y divide-gray-200">
+  <div className="overflow-x-auto ">
+    <table className="mt-4 min-w-full divide-y divide-gray-200 bg-gradient-to-r from-gray-300 to-gray-100 shadow-md">
       <thead className="bg-gray-50">
         <tr>
           <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">

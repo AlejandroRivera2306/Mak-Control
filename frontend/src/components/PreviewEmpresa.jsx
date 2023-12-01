@@ -140,29 +140,10 @@ const PreviewEmpresa = ({ empresa }) => {
     <div className='border-b border-gray-900/10 pb-3'>
       <div className='overflow-x-auto'>
         <table className='min-w-full divide-y divide-gray-200 bg-white text-sm'>
-          {/* <thead className='ltr:text-left rtl:text-right'>
-            <tr>
-              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
-                Nombre
-              </th>
-              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
-                Cliente
-              </th>
-              <th className='w-1/10 px-4 py-2 font-medium text-gray-900'>
-                Estado
-              </th>
-              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
-                Ciudad
-              </th>
-              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
-                Contrato
-              </th>
-              <th className='w-1/6 px-4 py-2'></th>
-            </tr>
-          </thead> */}
+      
           <tbody className='divide-y divide-gray-200'>
             <tr>
-              <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-green-500 rounded-md'>
+              <td className='w-1/6 px-4 py-2 font-medium text-green-300  bg-green-950 rounded-md'>
                 {nombre}
               </td>
               <td className='w-1/6 px-4 py-2 text-gray-500 font-bold  '>{closetax}</td>
@@ -178,7 +159,7 @@ const PreviewEmpresa = ({ empresa }) => {
               <td className='w-1/6 px-4 py-2'>
                 <Link
                   to={`${_id}`}
-                  className='inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700'
+                  className='inline-block rounded px-4 py-2 text-xs font-medium text-green-700 hover:bg-green-100 border-solid border-2 border-green-400'
                 >
                   View
                 </Link>

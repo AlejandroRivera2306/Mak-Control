@@ -538,7 +538,7 @@ const Header = () => {
       <nav className="container mx-auto flex items-center justify-between py-4 flex-col md:flex-row">
         <div className="flex items-center space-x-4  ">
           <img
-            className="h-12 w-auto"
+            className="custom-img"
             src="../img/aldanalog.png"
             alt="Your Company"
           />

@@ -10,7 +10,7 @@ const Usuarios = () => {
   return (
     <>
     {msg && <Alerta  alerta={alerta}/>}
-    <h1 className=' text-4xl font-bold text-center text-gray-800 uppercase'>User</h1> 
+    <h1 className=' text-4xl font-bold text-center text-gray-800 uppercase'>User Administrator</h1> 
     
 
     <div className=' bg-white shadow mt-10 rounded-lg p-5'>

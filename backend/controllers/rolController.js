@@ -11,7 +11,6 @@ const obtenerRoles = async (req, res) => {
 
             {'empresa': {$in: req.empresa}}
             
-
         ]
 
     }).select('-roles')// trae las empresas solo lo del usuario que logea 

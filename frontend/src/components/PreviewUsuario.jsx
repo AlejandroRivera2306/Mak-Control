@@ -30,14 +30,14 @@ const PreviewUsuario = ({ usuario }) => {
           </thead> */}
           <tbody className='divide-y divide-gray-200'>
             <tr>
-              <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-green-500 rounded-md'>
+              <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-orange-500 rounded-md'>
                 {nombre}
               </td>
               <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold  '>Administrador</td>            
               <td className='w-1/6 px-4 py-2'>
                 <Link
                   to={`${_id}`}
-                  className='inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700'
+                  className='inline-block rounded bg-orange-100  border-orange-700 px-4 py-2 text-xs font-medium text-orange-700 hover:bg-orange-200'
                 >
                   Update
                 </Link>
