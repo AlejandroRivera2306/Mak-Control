@@ -1475,23 +1475,23 @@ const eliminarEmpleado = (index) => {
       <div className="space-y-12">
       
 
-        <div className="border-b border-gray-900/10 pb-12 mt-3 mb-3">
-        <div className="flex items-center justify-center space-x-4">
+        <div className="border-b border-blue-700 pb-12 mt-3 mb-3">
+        <div className="flex items-center mb-7  space-x-6">
   <a
     href="#partners-section"
-    className="rounded-full bg-fuchsia-950 px-3 py-2 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    className="rounded-s-lg p-2 text-green-700 text-2xl hover:bg-green-100 border-solid border-2 border-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
   >
     Partners
   </a>
   <a
     href="#partners-services"
-    className="rounded-full bg-fuchsia-950 px-3 py-2 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    className="rounded-s-lg p-2 text-green-700 text-2xl hover:bg-green-100 border-solid border-2 border-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
   >
     Services
   </a>
 </div>
        
-          <h2 className="text-base font-semibold leading-7 text-gray-900 mt-2">Company information</h2>
+          <h2 className="text-2xl font-semibold leading-7 text-gray-900 mt-2">Company information</h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">Important company information</p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6  ">
@@ -1540,6 +1540,7 @@ const eliminarEmpleado = (index) => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   autoComplete="email"
+                  placeholder='xxxx@.com'
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md sm:leading-6 p-3"
                 />
               </div>
@@ -1578,6 +1579,7 @@ const eliminarEmpleado = (index) => {
                   value={state}
                   onChange={e => setState(e.target.value)}
                   autoComplete="address-level1"
+                  placeholder='XX'
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md sm:leading-6 p-3"
                 />
               </div>
@@ -1627,6 +1629,7 @@ const eliminarEmpleado = (index) => {
                   name="city"
                   id="city"
                   value={numbercomp}
+                  placeholder="0000000"
                   onChange={e => setNumbercomp(e.target.value)}
                  
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md sm:leading-6 p-3"
@@ -1644,6 +1647,7 @@ const eliminarEmpleado = (index) => {
                   name="website"
                   id="website"
                   value={website}
+                  placeholder='www.xxxx.com'
                   onChange={e => setWebsite(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md sm:leading-6 p-3"
                 />
@@ -1728,6 +1732,7 @@ const eliminarEmpleado = (index) => {
                   type="number"
                   name="contact2"
                   id="contact2"
+                  placeholder='00999999'
                   value={contactnumber}
                   onChange={ e => setContactnumber(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md sm:leading-6 p-3"
@@ -1824,7 +1829,7 @@ const eliminarEmpleado = (index) => {
         </div>
 
 <div className="border-b border-gray-900/10 pb-12" id="partners-section">
-  <h2 className="text-base font-semibold leading-7 text-gray-900">Partners</h2>
+  <h2 className="text-2xl font-semibold leading-7 text-gray-900">Partners</h2>
   <p className="mt-1 text-sm leading-6 text-gray-600">
     Important information about the company's partners.
   </p>
@@ -2103,7 +2108,7 @@ const eliminarEmpleado = (index) => {
  */}
 
 <div className="border-b border-gray-900/10 pb-12" id="partners-services">
-  <h2 className="text-base font-semibold leading-7 text-gray-900">Services</h2>
+  <h2 className="text-2xl font-semibold leading-7 text-gray-900">Services</h2>
   <p className="mt-1 text-sm leading-6 text-gray-600">
     Important information about the company's Services.
   </p>

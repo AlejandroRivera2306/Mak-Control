@@ -73,9 +73,9 @@ const EditarEmpresa = () => {
             
             <div>
                 <h1 className="text-5xl font-semibold leading-7 text-gray-900 mb-8">{nombre}</h1>
-                <button className='items-center gap-2 text-red-500 hover:text-black '
+                <button className='items-center gap-2 text-white font-bold uppercase hover:bg-red-700 rounded-full bg-red-600 p-2'
                     onClick={handleClick}
-                > Inactivate</button>
+                > Delete Company</button>
                 <FormularioEmpresa/>
             </div>
             

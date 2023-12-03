@@ -359,12 +359,12 @@ export default function Empresa() {
 
 
 
-<div className='bg-gradient-to-r from-green-600 to-green-100 mt-5  mb-6 rounded-md'>
+<div className='bg-gradient-to-r from-gray-800 to-green-800 mt-5  mb-6 rounded-md'>
 
 <div className='flex items-center justify-between' >
 
 <div className="border-solid border-3 border-green-600 "></div>
-<h1 className="text-4xl font-semibold leading-7 mt-7 mb-6 text-green-950 "> Staff Asigned</h1>
+<h1 className="text-4xl font-semibold leading-7 mt-7 mb-6 text-white "> Staff Asigned</h1>
   
 {admin && ( 
           <button
@@ -423,8 +423,8 @@ No staff assigned
         <div >
           <div className="px-4 sm:px-0 flex justify-around ">
             <div>
-            <h1 className="text-4xl font-semibold leading-7 text-gray-900 text-center"> Company Information</h1>
-            <p className="mt-1 max-w-1xl text-2xl leading-6 text-gray-500 text-center">{nombre}</p>
+            <h1 className="text-4xl font-semibold leading-7 text-gray-900 text-center mt-4"> Company Information</h1>
+            <p className="mt-5 max-w-1xl text-2xl leading-6 text-gray-500 text-center">{nombre}</p>
 
             {admin && (
             <div className='flex items-center gap-2 text-gray-500 hover:text-black justify-end mt-7'>
@@ -434,7 +434,7 @@ No staff assigned
               
             <Link
             to={`/empresas/editar/${params.id}`}
-            className= 'uppercase font-bold'
+            className= 'uppercase font-bold text-white rounded-full bg-blue-500 p-1'
             >
             Update Data
             </Link>
@@ -453,54 +453,32 @@ No staff assigned
             <ModalEliminarColaborador/>
             
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-gradient-to-r from-gray-300 to-gray-100 shadow-md  p-5 rounded-md">
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-gradient-to-r text-green-300  bg-gray-800 rounded-md shadow-md  p-6 ">
             <div className="sm:col-span-3">
-              <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="nombre" className="block text-2xl font-medium leading-6 text-white">
               Company name 
               </label>  
               <div className="mt-2">
-                <input
-                  type="text"
-                  id="nombre"
-                  autoComplete="given-name"
-                  value={nombre}
-                  onChange={e => setNombre(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2> {nombre}</h2>
                
               </div>
             </div>
 
             <div className="sm:col-span-3">
-              <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="last-name" className="block text-2xl font-medium leading-6  text-white">
               Related group 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  id="descripcion"
-                  autoComplete="family-name"
-                  value={descripcion}
-                  onChange={e => setDescripcion(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2>{descripcion}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="email" className="block text-2xl font-medium leading-6 text-white">
                 Email address 
               </label>
               <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{email}</h2>
               </div>
             </div>
 
@@ -509,271 +487,146 @@ No staff assigned
             
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="city" className="block text-2xl font-medium leading-6 text-white">
                 City 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  value={city}
-                  onChange={e => setCity(e.target.value)}
-                  autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <h2 className='uppercase'>{city}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="region" className="block text-2xl font-medium leading-6 text-white">
                 State / Province 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="region"
-                  id="region"
-                  value={state}
-                  onChange={e => setState(e.target.value)}
-                  autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <h2 className='uppercase'>{state}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="postal-code" className="block text-2xl font-medium leading-6 text-white">
                 ZIP / Postal code 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  value={zip}
-                  onChange={e => setZip(e.target.value)}
-                  autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <h2 className='uppercase'>{zip}</h2>
               </div>
             </div>
 
             <div className="col-span-full">
-              <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="street-address" className="block text-2xl font-medium leading-6 text-white">
                 Street address 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="street-address"
-                  id="street-address"
-                  value={cliente}
-                  onChange={e => setCliente(e.target.value)}
-
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <h2 className='uppercase'>{cliente}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="city" className="block text-2xl font-medium leading-6 text-white">
                 Company phone number 
               </label>
               <div className="mt-2">
-                <input
-                  type="number"
-                  name="city"
-                  id="city"
-                  value={numbercomp}
-                  onChange={e => setNumbercomp(e.target.value)}
-                 
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+               <h2 className='uppercase'>{numbercomp}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="website" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="website" className="block text-2xl font-medium leading-6 text-white">
                 Website 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="website"
-                  id="website"
-                  value={website}
-                  onChange={e => setWebsite(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{website}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="country" className="block text-2xl font-medium leading-6 text-white">
               Type of tax closing 
               </label>
               <div className="mt-2">
-                <select
-                  id="country"
-                  name="country"
-                  value={closetax}
-                  onChange={e => setClosetax(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                
-                  <option>Fiscal year</option>
-                  <option>Calendar year</option>
-                 
-                </select>
+               <h2 className='uppercase'>{closetax} </h2>
               </div>
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="city" className="block text-2xl font-medium leading-6 text-white">
                 Date of entry Aldana 
               </label>
               <div className="mt-2">
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                    value={fechaEntrega}
-                onChange={ e => setFechaEntrega(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+               <h2 className='uppercase'>{ fechaEntrega?.split('T')[0]}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="region" className="block text-xl font-medium leading-6 text-white">
                 Contact Name 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="contact"
-                  id="contact"
-                  value={contactname}
-                  onChange={ e => setContactname(e.target.value)}
-                 
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+               <h2 className='uppercase'>{contactname}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="postal-code" className="block text-2xl font-medium leading-6 text-white">
               Who is ? 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  value={whois}
-                  onChange={ e => setWhois(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{whois}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="city" className="block text-2xl font-medium leading-6 text-white">
                 Contact number 
               </label>
               <div className="mt-2">
-                <input
-                  type="number"
-                  name="contact2"
-                  id="contact2"
-                  value={contactnumber}
-                  onChange={ e => setContactnumber(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{contactnumber}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="region" className="block text-2xl font-medium leading-6 text-white">
                 Email Contact 
               </label>
               <div className="mt-2">
-                <input
-                  type="email"
-                  name="email"
-                  id="emailc"
-                  value={emailcontact}
-                  onChange={ e => setEmailcontact(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{emailcontact}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="postal-code" className="block text-2xl font-medium leading-6 text-white">
                 Payroll Contact 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  value={payrollcontact}
-                  onChange={ e => setPayrollcontact(e.target.value)}
-
-                  autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+               <h2 className='uppercase'>{payrollcontact}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="city" className="block text-2xl font-medium leading-6 text-white">
                 EIN 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  value={ein}
-                  onChange={ e => setEin(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <h2 className='uppercase'>{ein}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="region" className="block text-2xl font-medium leading-6 text-white">
                 SSN 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="region"
-                  id="region"
-                  value={ssn}
-                  onChange={ e => setSsn(e.target.value)}
-                  
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{ssn}</h2>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="postal-code" className="block text-2xl font-medium leading-6 text-white">
                 Income Tax Form 
               </label>
               <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  value={incometax}
-                  onChange={ e => setIncometax(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                <h2 className='uppercase'>{incometax}</h2>
               </div>
             </div>
 
@@ -785,18 +638,18 @@ No staff assigned
         <div className="mt-6 border-b border-gray-900/10 pb-12">
           </div>      
           <div className="mt-6 border-b border-gray-900/10 pb-12">
-  <h2 className="font-semibold leading-7 text-gray-900  bg-gray-100 p-5 mb-2 rounded-md text-3xl ">Partners Information</h2>
-  <div className="overflow-x-auto bg-gradient-to-r from-gray-300 to-gray-100 shadow-md  p-5 rounded-md">
-    <table className="mt-4 min-w-full divide-y divide-gray-200">
-      <thead className="bg-gray-50 rounded-md">
+  <h2 className="font-semibold leading-7 text-white  bg-gradient-to-r from-gray-800 to-green-800 p-5 mb-2 rounded-md text-3xl ">Partners Information</h2>
+  <div className="overflow-x-auto bg-gradient-to-r from-gray-800 to-gray-700 shadow-md  p-5 rounded-md">
+    <table className="mt-4 min-w-full divide-y divide-gray-200 ">
+      <thead className=" rounded-md text-2xl text-white">
         <tr className='rounded-md'>
-          <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
+          <th className="px-6 py-3 text-left text-1xl font-medium   tracking-wider">
             Name
           </th>
-          <th className="px-6 py-3 text-left font-medium text-gray-500  tracking-wider text-1xl ">
+          <th className="px-6 py-3 text-left font-medium  tracking-wider text-1xl ">
           Member
           </th>
-          <th className="px-6 py-3 text-left  font-medium text-gray-500  tracking-wider text-1xl ">
+          <th className="px-6 py-3 text-left  font-medium  tracking-wider text-1xl ">
             %
           </th>
         </tr>
@@ -805,9 +658,9 @@ No staff assigned
         {empleados &&
           empleados.map((empleado, index) => (
             <tr key={index} className="text-sm text-gray-500">
-              <td className="px-6 py-4 whitespace-nowrap text-black text-1xl">{empleado.nombre}</td>
-              <td className="px-6 py-4 whitespace-nowrap   text-black text-1xl">{empleado.cargo}</td>
-              <td className="px-6 py-4 whitespace-nowrap  text-black text-1xl">{empleado.porcentaje}%</td>
+              <td className="px-6 py-4 whitespace-nowrap text-green-300 text-2xl">{empleado.nombre}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-green-300 text-2xl">{empleado.cargo}</td>
+              <td className="px-6 py-4 whitespace-nowrap  text-green-300 text-2xl">{empleado.porcentaje}%</td>
             </tr>
           ))}
       </tbody>
@@ -820,38 +673,38 @@ No staff assigned
 
 
 <div className="mt-6 border-b border-gray-900/10 pb-12">
-  <h2 className=" font-semibold leading-7 text-gray-900  bg-gray-100 shadow-md rounded-md p-5 text-3xl">Services</h2>
+  <h2 className=" font-semibold leading-7 text-white  bg-gradient-to-r from-gray-800 to-green-800 shadow-md rounded-md p-5 text-3xl">Services</h2>
 
   <div className="overflow-x-auto ">
-    <table className="mt-4 min-w-full divide-y divide-gray-200 bg-gradient-to-r from-gray-300 to-gray-100 shadow-md">
-      <thead className="bg-gray-50">
+    <table className="mt-4 min-w-full divide-y divide-gray-500 bg-gradient-to-r from-gray-800 to-gray-800 shadow-md">
+      <thead className="bg-gray-800">
         <tr>
-          <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
+          <th className="px-6 py-3 text-left text-1xl font-medium text-white  text-2xl tracking-wider">
             Service
           </th>
-          <th className="px-6 py-3 text-left text-1xl font-medium text-gray-500  tracking-wider">
+          <th className="px-6 py-3 text-left text-1xl font-medium text-white text-2xl tracking-wider">
             Details
           </th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        <tr className="text-sm text-gray-500">
+        <tr className="text-2xl text-green-300">
           <td className="px-6 py-4 whitespace-nowrap">Accounting</td>
           <td className="px-6 py-4 whitespace-nowrap">{empresa.accounting}</td>
         </tr>
-        <tr className="text-sm text-gray-500">
+        <tr className="text-2xl text-green-300">
           <td className="px-6 py-4 whitespace-nowrap">Tax Planning</td>
           <td className="px-6 py-4 whitespace-nowrap">{empresa.txplanning}</td>
         </tr>
-        <tr className="text-sm text-gray-500">
+        <tr className="text-2xl text-green-300">
           <td className="px-6 py-4 whitespace-nowrap">Sale Tax</td>
           <td className="px-6 py-4 whitespace-nowrap">{empresa.saletax}</td>
         </tr>
-        <tr className="text-sm text-gray-500">
+        <tr className="text-2xl text-green-300">
           <td className="px-6 py-4 whitespace-nowrap">Payroll</td>
           <td className="px-6 py-4 whitespace-nowrap">{empresa.payroll}</td>
         </tr>
-        <tr className="text-sm text-gray-500">
+        <tr className="text-2xl text-green-300">
           <td className="px-6 py-4 whitespace-nowrap">Type of contract</td>
           <td className="px-6 py-4 whitespace-nowrap">{empresa.contract}</td>
         </tr>

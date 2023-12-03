@@ -30,7 +30,7 @@ const NuevaEmpresa = () => {
           <line x1="9" y1="15" x2="13" y2="15" />
         </svg></span>
       </h1> */}
-      <div className='mt-5 max-h-[700px] overflow-y-auto'>
+      <div className='mt-5 '>
         <FormularioEmpresa />
       </div>
     </>
@@ -38,3 +38,4 @@ const NuevaEmpresa = () => {
 };
 
 export default NuevaEmpresa;
+// className='mt-5 max-h-[700px] overflow-y-auto'
