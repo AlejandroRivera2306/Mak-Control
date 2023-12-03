@@ -1,30 +1,10 @@
-// import React from 'react'
-
-// const Footer = () => {
-//   return (
-//     <div className='bg-gray-800 items-center flex justify-center '>
-
-
-//           <img
-//             className="custom-img"
-//             src="../img/logogray.png"
-//             alt="Your Company"
-//           />
-
-//           <h1 className='text-white'> </h1>
-//         </div>
-
-//   )
-// }
-
-// export default Footer
 
 import React from 'react';
 
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-6">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center pr-7 pl-7">
         <div className="flex items-center">
           <img
             className="mr-4 custom-img"

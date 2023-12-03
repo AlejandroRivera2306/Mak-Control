@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext, Children} from 'react'
 import clienteAxios from '../config/clienteAxios'
 import {useNavigate} from 'react-router-dom'
+import useAuth from '../hooks/useAuth';
 
 const EmpresasContext = createContext();
 
@@ -22,7 +23,7 @@ const EmpresasProvider = ({children}) => {
 
     const [ buscadorcuenta, setBuscadorCuenta] = useState(false)
 
-    
+    const {auth} = useAuth()
 
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const EmpresasProvider = ({children}) => {
    
         
 
-    },[])
+    },[auth])
 
     const mostrarAlerta = alerta => {
         setAlerta(alerta)
@@ -626,7 +627,13 @@ const EmpresasProvider = ({children}) => {
       }
 
 
+      const cerrarSesionEmpresas = () => {
 
+        setEmpresas([])
+        setEmpresa({})
+        setAlerta({})
+
+      }
 
 
 
@@ -665,7 +672,8 @@ const EmpresasProvider = ({children}) => {
                 handleBuscador,
                 buscador,
                 handleBuscarCuenta,
-                buscadorcuenta
+                buscadorcuenta,
+                cerrarSesionEmpresas
 
                 
                 
