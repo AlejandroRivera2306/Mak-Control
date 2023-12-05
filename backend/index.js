@@ -40,7 +40,7 @@ app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/empresas", empresaRoutes);
 app.use("/api/evaluaciones", usuarioRoutes);
 app.use("/api/tareas", tareaRoutes);
-app.use("/api/usuarios", rolRoutes);
+app.use("/api/roles", rolRoutes);
 
 
 

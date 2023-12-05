@@ -45,7 +45,7 @@ const PreviewUsuario = ({ usuario }) => {
                 >
                   <button
                     className="bg-indigo-600 px-4 py-2 text-white font-bold rounded-lg"
-                    onClick={() =>  handleModalEditarUsuario()}
+                    onClick={() =>  handleModalEditarUsuario(usuario)}
                   >
                     Update
                   </button>

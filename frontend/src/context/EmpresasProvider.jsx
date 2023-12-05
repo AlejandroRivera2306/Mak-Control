@@ -343,15 +343,15 @@ const EmpresasProvider = ({children}) => {
 
     }
 
-    const handleModalEditarCuenta = tarea => {
+    const handleModalEditarCuenta =  actividad => {
 
-        setTarea(tarea)
+        setActividad(actividad)
         setModalFormularioStaff(true)
     }
 
-    const handleModalEditarActividad = tarea => {
+    const handleModalEditarActividad = actividad => {
 
-        setActividad(tarea)
+        setActividad(actividad)
         setModalColaboradorBasico(true)
     }
 

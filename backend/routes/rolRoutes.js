@@ -1,11 +1,11 @@
-import express from 'express';
+import express from "express";
+const router = express.Router();
 
 import {obtenerRoles
     } from '../controllers/rolController.js'
 
 import checkAuth from '../middleware/checkAuth.js';
 
-    const router = express.Router();
     router
     .route('/')
     .get(checkAuth,obtenerRoles)
@@ -13,4 +13,3 @@ import checkAuth from '../middleware/checkAuth.js';
     router.get('/', checkAuth,obtenerRoles)
     
     export default router;
-    

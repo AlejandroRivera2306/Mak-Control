@@ -62,7 +62,7 @@ const UsuariosProvider = ({children}) => {
                             Authorization: `Bearer ${token}`
                         }
                     }
-                    const {data} = await clienteAxios.get('/usuarios', config)
+                    const {data} = await clienteAxios.get('/roles', config)
                   setRoles(data)
                 
             } catch (error) {
@@ -119,8 +119,6 @@ const UsuariosProvider = ({children}) => {
         if(usuario.id){
            await editarUsuario(usuario)
 
-        }else {
-            await  nuevaUsuario(usuario)
         }
 
       
@@ -255,8 +253,9 @@ const UsuariosProvider = ({children}) => {
 
     }
 
-    const handleModalEditarUsuario = () => {
+    const handleModalEditarUsuario = usuario => {
 
+        setUsuario(usuario)
         setModalFormularioUsuario(true)
     }
 

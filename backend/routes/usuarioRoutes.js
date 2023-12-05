@@ -32,7 +32,7 @@ router
     .get(checkAuth,obtenerUsuarios)
 
 
-router.get('/', checkAuth,obtenerUsuarios)
+//router.get('/', checkAuth,obtenerUsuarios)
 
 router
     .route('/:id')

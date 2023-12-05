@@ -1,17 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import useUsuarios from '../hooks/useUsuarios';
+import useEmpresas from '../hooks/useEmpresasUsuarios';
 import Alerta from './Alerta';
 import { useParams } from 'react-router-dom';
 
-const ModalColaboradorBasico = () => {
+const ModalColaboradorBasico = ({ actividad }) => {
   const [id, setId] = useState('');
   const [nombre, setNombre] = useState('');
   const [role, setRole] = useState('');
   const [roles, setRoles] = useState([]);
   const params = useParams();
 
-  const { modalColaboradorBasico, handleModalUsuario, alerta, usuario } = useUsuarios();
+  const { modalColaboradorBasico, handleModalUsuario, alerta, usuario, actividad } = useEmpresas();
 
   useEffect(() => {
     if (usuario?._id) {

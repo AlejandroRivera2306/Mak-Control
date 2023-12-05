@@ -4,22 +4,21 @@ import useUsuarios from '../hooks/useUsuarios'
 import Alerta from './Alerta'
 import { useParams } from 'react-router-dom'
 
-const ROLES = ['Colaborador', 'Analista']
 
 const ModalFormularioUsuario = () => {
   const [id, setId] = useState('');
   const [nombre, setNombre] = useState('')
-//  const [role, setRole] = useState('')
-  const [roles, setRoles] = useState([]);
+  const [role, setRole] = useState('')
   const params = useParams()
 
-  const { modalFormularioUsuario, handleModalUsuario, alerta, usuario } = useUsuarios();
-  //const { nombre } = roles;
-  //const { prueba  } = usuarios;
+  const { modalFormularioUsuario, handleModalUsuario, mostrarAlerta, alerta, submitUsuario, usuario, roles } = useUsuarios();
+  
+
   useEffect(() => {
     if (usuario?._id) {
       setId(id);
       setNombre(usuario.nombre);
+      setRole(usuario.role)
       return;
     }
     
@@ -29,8 +28,30 @@ const ModalFormularioUsuario = () => {
     setNombre('');
   }, [usuario]);
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if ([nombre].includes('')) {
+      mostrarAlerta({
+        msg: "Field Required",
+        error: true
+      });
+      return;
+    }
+  
+    try {
+      if (id) {
+        // Actualizar cuenta existente
+        await submitUsuario({
+          id,
+          nombre});
+      }
+  
+      setId('');
+      setNombre('');
+    } catch (error) {
+      console.error("Error submitting user:", error);
+    }
   };
 
 //console.log(usuario.nombre);
@@ -91,9 +112,8 @@ const ModalFormularioUsuario = () => {
                         className='text-gray-700 uppercase font-bold text-sm '
                         htmlFor='nombre'
                       >
-                        Usuario
+                        Usuario  
                       </label>
-                      {nombre}
                       <input
                         type='text'
                         id='nombre'
@@ -101,6 +121,7 @@ const ModalFormularioUsuario = () => {
                         className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
+                        disabled
                       />
                     </div>
                     <div className='mb-5'>
@@ -116,11 +137,12 @@ const ModalFormularioUsuario = () => {
                         id='info-bank'
 
                         className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
                       >
                         <option value=" "> --- Selection ---</option>
-                        {ROLES.map(option => (
-                          <option key={option}>{option}</option>
+                        {roles.map(option => (
+                          <option key={option._id}>{option.nombre}</option>
 
                         ))}
                       </select>
@@ -133,7 +155,7 @@ const ModalFormularioUsuario = () => {
                       className='bg-green-500 hover:bg-green-700 
                                       w-full p-3 text-white uppercase font-bold cursor-pointer 
                                       transition-colors rounded-lg text-sm text-center'
-                      value={'Update Rol'}
+                      value={id ? 'Update Rol': 'Update Rol'}
 
                     />
 

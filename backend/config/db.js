@@ -1,6 +1,8 @@
+import express from 'express';
 import mongoose from "mongoose";
+import rolRoutes from '../routes/rolRoutes.js';
 
-
+const app = express();
 const conectarDB = async () => {
 
     try {
@@ -11,6 +13,10 @@ const conectarDB = async () => {
 
         }
         );
+        app.use(express.json());
+
+        
+        app.use('/api/roles', rolRoutes);
 
         const url = `${connection.connection.host} : ${connection.connection.port} `
         console.log(`Mongo db conectado en: ${url}` )
