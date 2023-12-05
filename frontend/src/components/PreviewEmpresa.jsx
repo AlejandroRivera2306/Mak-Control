@@ -102,11 +102,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import useEmpresas from '../hooks/useEmpresas';
 
 const PreviewEmpresa = ({ empresa }) => {
   // const { nombre, _id, cliente, state, city, contract } = empresa;
 
   const {auth} = useAuth()
+
+
   
   const {
     nombre,
@@ -132,7 +135,10 @@ const PreviewEmpresa = ({ empresa }) => {
     empleados,
     banksets,
     contract,
-    creador
+    creador,
+   
+    
+    
     
   } = empresa;
 
@@ -150,6 +156,14 @@ const PreviewEmpresa = ({ empresa }) => {
               <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold  '>{state}</td>
               <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold   '>{city}</td>
               <td className='w-1/6 px-4 py-2 text-gray-500 pr-6  font-bold '>{contract}</td>
+            
+            
+             
+             
+             
+             
+              
+
               {auth._id !==creador && (
 
             <td className='w-1/6 px-4 py-2 pr-6 text-sm text-green-700 rounded-lg font-bold uppercase'>Assigned</td>

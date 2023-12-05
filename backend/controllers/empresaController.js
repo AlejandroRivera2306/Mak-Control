@@ -94,6 +94,41 @@ const editarEmpresa = async (req, res) => {
     empresa.descripcion = req.body.descripcion || empresa.descripcion;
     empresa.fechaEntrega = req.body.fechaEntrega || empresa.fechaEntrega;
     empresa.cliente = req.body.cliente || empresa.cliente;
+    empresa.ssn = req.body.ssn || empresa.ssn;
+    empresa.email = req.body.email || empresa.email;
+    empresa.city = req.body.city || empresa.city;
+    empresa.state = req.body.state || empresa.state;
+    empresa.zip = req.body.zip || empresa.zip;
+    empresa.numbercomp = req.body.numbercomp || empresa.numbercomp;
+    empresa.website = req.body.website || empresa.website;
+    empresa.closetax = req.body.closetax || empresa.closetax;
+    empresa.contactname = req.body.contactname || empresa.contactname;
+    empresa.whois = req.body.whois || empresa.whois;
+    empresa.contactnumber = req.body.contactnumber || empresa.contactnumber;
+    empresa.emailcontact = req.body.emailcontact || empresa.emailcontact;
+    empresa.payrollcontact = req.body.payrollcontact || empresa.payrollcontact;
+    empresa.ein = req.body.ein || empresa.ein;
+    empresa.ssn = req.body.ssn || empresa.ssn;
+    empresa.incometax = req.body.incometax || empresa.incometax;
+    empresa.accounting = req.body.accounting || empresa.accounting;
+    empresa.txplanning = req.body.txplanning || empresa.txplanning;
+    empresa.saletax = req.body.saletax || empresa.saletax;
+    empresa.payroll = req.body.payroll || empresa.payroll;
+    empresa.contract = req.body.contract || empresa.contract;
+
+
+
+    
+
+
+
+
+    
+
+    
+
+    
+
     
     
     try {

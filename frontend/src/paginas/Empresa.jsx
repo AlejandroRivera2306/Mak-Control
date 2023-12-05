@@ -345,9 +345,9 @@ export default function Empresa() {
                 key={tarea._id}
                 tarea={tarea}
                 />
-                )) : <p className='text-center my-5 p-10'>
+                )) : <p className='text-center my-5 p-10 text-2xl text-red-600'>
 
-                No hay cuentas bancarias de esta empresa
+                 No bank accounts for this company
                 </p> }
 
 
@@ -391,8 +391,8 @@ export default function Empresa() {
   colaborador={colaborador} 
  />
 
-)) : <p className='text-center my-5 p-10'>
-No staff assigned
+)) : <p className='text-center my-5 p-10 text-2xl '>
+No staff assigned yet
 </p> }
 </div>
 </div>

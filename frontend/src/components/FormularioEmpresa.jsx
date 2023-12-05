@@ -1717,6 +1717,7 @@ const eliminarEmpleado = (index) => {
                   name="postal-code"
                   id="postal-code"
                   value={whois}
+                  placeholder='Owner,Accountant, Mother, Father etc ... '
                   onChange={ e => setWhois(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md sm:leading-6 p-3"
                 />
@@ -1766,6 +1767,7 @@ const eliminarEmpleado = (index) => {
                   name="postal-code"
                   id="postal-code"
                   value={payrollcontact}
+                  placeholder="Name"
                   onChange={ e => setPayrollcontact(e.target.value)}
 
                   autoComplete="postal-code"
