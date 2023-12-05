@@ -229,7 +229,8 @@ const eliminarUsuario = async (req, res) => {
 
 const obtenerUsuarios = async (req, res) => {
 
-    const usuarios = await Usuario.find().select('confirmado nombre');
+    const usuarios = await Usuario.find().select('confirmado nombre rol').populate('rol', 'nombre');
+    console.log(usuarios);
     res.json(usuarios)
 
 }
@@ -238,7 +239,7 @@ const obtenerUsuarios = async (req, res) => {
 const obtenerUsuario = async (req, res) => {
 
     const {id} = req.params;
-    const usuario = await Usuario.findById(id)
+    const usuario = await Usuario.findById(id).select('confirmado nombre rol').populate('rol', 'nombre');
 
 
 

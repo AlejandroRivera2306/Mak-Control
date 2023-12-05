@@ -13,7 +13,10 @@ const EmpresasProvider = ({children}) => {
     const [ empresa, setEmpresa] = useState({})
     const [ cargando , setCargando] = useState(false)
     const [ modalFormularioStaff , setModalFormularioStaff ] = useState(false)
+    const [ modalColaboradorBasico , setModalColaboradorBasico ] = useState(false)
+    const [ modalColaboradorAvanzado , setModalColaboradorAvanzado ] = useState(false)
     const [ tarea, setTarea] =  useState({})
+    const [ actividad, setActividad] =  useState({})
     const [ modalEliminarCuenta , setModalEliminarCuenta]= useState(false)
     const [ formularioColaborador, setformularioColaborador ]= useState(false)
     const [ colaborador, setColaborador] = useState({})
@@ -252,6 +255,7 @@ const EmpresasProvider = ({children}) => {
 
     }
 
+
     const submitCuenta =  async tarea  => {
 
         if(tarea?.id){
@@ -344,6 +348,19 @@ const EmpresasProvider = ({children}) => {
         setTarea(tarea)
         setModalFormularioStaff(true)
     }
+
+    const handleModalEditarActividad = tarea => {
+
+        setActividad(tarea)
+        setModalColaboradorBasico(true)
+    }
+
+    const handleModalEditarActividadAvanzado = tarea => {
+
+        setActividad(tarea)
+        setModalColaboradorAvanzado(true)
+    }
+
 
     const hadleModalEliminarCuenta = tarea => {
         setTarea(tarea)
@@ -646,7 +663,7 @@ const EmpresasProvider = ({children}) => {
                 cargando,
                 eliminarEmpresa,
                 modalFormularioStaff,
-                handleModalStaff,
+                handleModalStaff,     
                 submitCuenta,
                 handleModalEditarCuenta,
                 tarea,
@@ -665,7 +682,12 @@ const EmpresasProvider = ({children}) => {
                 handleBuscador,
                 buscador,
                 handleBuscarCuenta,
-                buscadorcuenta
+                buscadorcuenta,
+                handleModalEditarActividad,
+                actividad,
+                modalColaboradorBasico,
+                handleModalEditarActividadAvanzado,
+                modalColaboradorAvanzado
 
                 
                 

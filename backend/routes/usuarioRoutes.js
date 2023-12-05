@@ -27,10 +27,10 @@ router.post('/olvide-password', olvidePassword);
 router.route('/olvide-password/:token').get(comprobarToken).post(nuevoPassword)
 router.get('/perfil', checkAuth,perfil);
 
-/*router
+router
     .route('/')
     .get(checkAuth,obtenerUsuarios)
-*/
+
 
 router.get('/', checkAuth,obtenerUsuarios)
 
@@ -40,7 +40,6 @@ router
     .put(checkAuth,editarUsuario)
     .delete(checkAuth,eliminarUsuario);
 
-router.get('/', checkAuth,obtenerUsuario)
 
 
 

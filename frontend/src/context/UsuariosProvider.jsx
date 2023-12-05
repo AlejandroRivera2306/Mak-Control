@@ -8,9 +8,11 @@ const UsuariosContext = createContext();
 const UsuariosProvider = ({children}) => {
 
     const [ usuarios , setUsuarios] = useState([])
+    const [ roles , setRoles] = useState([])
     const [ evaluaciones , setEvaluaciones] = useState([])
     const [alerta, setAlerta ] = useState({})
     const navigate = useNavigate();
+    const [ modalFormularioUsuario , setModalFormularioUsuario ] = useState(false)
     const [ usuario, setUsuario] = useState({})
     const [ cargando , setCargando] = useState(false)
 
@@ -41,6 +43,35 @@ const UsuariosProvider = ({children}) => {
 
         }
         obtenerUsuarios()
+    
+    },[])
+
+    useEffect(() => {
+        const obtenerRoles = async () =>{
+
+
+            try {
+
+                const token = localStorage.getItem('token')
+                if(!token) return
+        
+                    const config = {
+                        headers: {
+        
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                    const {data} = await clienteAxios.get('/usuarios', config)
+                  setRoles(data)
+                
+            } catch (error) {
+                console.log(error)
+            }
+
+
+        }
+        obtenerRoles()
     
     },[])
 
@@ -219,6 +250,16 @@ const UsuariosProvider = ({children}) => {
 
     }
 
+    const handleModalUsuario = () => {
+        setModalFormularioUsuario (!modalFormularioUsuario)
+
+    }
+
+    const handleModalEditarUsuario = () => {
+
+        setModalFormularioUsuario(true)
+    }
+
     const eliminarUsuario = async id => {
        try {
 
@@ -275,6 +316,10 @@ const UsuariosProvider = ({children}) => {
                 cargando,
                 evaluaciones,
                 eliminarUsuario,   
+                modalFormularioUsuario,
+                handleModalUsuario,
+                handleModalEditarUsuario,
+                roles,
             }}
         
         

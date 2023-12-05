@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const { Schema } = mongoose;
 
 const empresaSchema = mongoose.Schema({
 
@@ -148,9 +148,10 @@ const empresaSchema = mongoose.Schema({
         trim: true,
         required: true,
     },
-
-
-
+    actividad: {
+        type: Schema.Types.ObjectId,
+        ref: 'Actividad',
+      },
 
     empleados: [
         {
@@ -191,9 +192,7 @@ const empresaSchema = mongoose.Schema({
         ref: "Usuario",
         } 
 
-    ]
-
-  
+    ]  
     
 },
 {

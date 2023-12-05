@@ -369,11 +369,14 @@
 
 import React from 'react';
 import useEmpresas from '../hooks/useEmpresas';
+import useUsuarios from '../hooks/useUsuarios';
 import useAdmin from '../hooks/useAdmin';
 
 const CuentasBank = ({ tarea }) => {
   const {
     handleModalEditarCuenta,
+    handleModalEditarActividad,
+    handleModalEditarActividadAvanzada,
     hadleModalEliminarCuenta,
     completarTarea
   } = useEmpresas();
@@ -420,6 +423,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                   <button
                     className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
+                    onClick={() => handleModalEditarActividad(tarea)}
                   >
                     ...
                   </button>
@@ -427,6 +431,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                     className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
+                    onClick={() =>  handleModalEditarActividad(tarea)}
                   >
                     ...
                   </button>
@@ -434,6 +439,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                     className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
+                    onClick={() => handleModalEditarActividadAvanzada(tarea)}
                   >
                     ...
                 </button>

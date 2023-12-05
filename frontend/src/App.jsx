@@ -14,6 +14,8 @@ import EditarEmpresa from './paginas/EditarEmpresa'
 import {AuthProvider} from './context/AuthProvider'
 import { EmpresasProvider } from './context/EmpresasProvider'
 import Usuarios from './paginas/Usuarios'
+import RolUsuario from './components/ModalFormularioUsuario';
+import EditarUsuario from './paginas/EditarUsuario'
 import Evaluaciones from './paginas/Evaluaciones'
 import { UsuariosProvider } from './context/UsuariosProvider'
 
@@ -48,11 +50,12 @@ function App() {
          
             <Route path="/usuarios" element={<RutaProtegida/>}>
               <Route index element={<Usuarios/>} />
+              <Route path='editar/:id' element={<EditarUsuario/>}/>
+              <Route path=':id' element={<RolUsuario/>}/>
             </Route>
             <Route path="/evaluaciones" element={<RutaProtegida/>}>
               <Route index element={<Evaluaciones/>} />
             </Route>
-
         </Routes>
         </UsuariosProvider> 
       </EmpresasProvider>

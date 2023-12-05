@@ -2,15 +2,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import useUsuarios from '../hooks/useUsuarios';
 
 const PreviewUsuario = ({ usuario }) => {
 
   const {auth} = useAuth()
-  
+  const {
+    handleModalEditarUsuario,
+  } = useUsuarios();
   const {
     nombre,
     _id,
     confirmado,
+    rol,
   } = usuario;
 
   return (
@@ -33,13 +37,18 @@ const PreviewUsuario = ({ usuario }) => {
               <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-green-500 rounded-md'>
                 {nombre}
               </td>
-              <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold  '>Administrador</td>            
+              <td className='w-1/6 px-4 py-2 text-gray-500 pr-6 font-bold  '>{rol.nombre}</td>            
               <td className='w-1/6 px-4 py-2'>
                 <Link
                   to={`${_id}`}
                   className='inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700'
                 >
-                  Update
+                  <button
+                    className="bg-indigo-600 px-4 py-2 text-white font-bold rounded-lg"
+                    onClick={() =>  handleModalEditarUsuario()}
+                  >
+                    Update
+                  </button>
                 </Link>
               </td>
             </tr>

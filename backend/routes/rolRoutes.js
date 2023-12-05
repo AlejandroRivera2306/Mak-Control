@@ -1,7 +1,6 @@
 import express from 'express';
 
-import {obtenerRoles,
-    nuevoRol,
+import {obtenerRoles
     } from '../controllers/rolController.js'
 
 import checkAuth from '../middleware/checkAuth.js';
@@ -10,8 +9,8 @@ import checkAuth from '../middleware/checkAuth.js';
     router
     .route('/')
     .get(checkAuth,obtenerRoles)
-    .post(checkAuth,nuevoRol);
-
+    
+    router.get('/', checkAuth,obtenerRoles)
     
     export default router;
     
