@@ -59,6 +59,11 @@ const tareaSchema = mongoose.Schema({
 
     },
 
+    seguimiento: {
+        type:  mongoose.Schema.Types.ObjectId,
+        ref: 'Seguimiento',
+      },
+
 }, {
 
     timestamps: true

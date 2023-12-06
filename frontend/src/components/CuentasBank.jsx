@@ -7,7 +7,7 @@ const CuentasBank = ({ tarea }) => {
   const {
     handleModalEditarCuenta,
     handleModalEditarActividad,
-    handleModalEditarActividadAvanzada,
+    handleModalEditarActividadAvanzado,
     hadleModalEliminarCuenta,
     completarTarea
   } = useEmpresas();
@@ -40,8 +40,6 @@ const CuentasBank = ({ tarea }) => {
               <th className="px-4 py-2 text-gray-400">Reconciliador</th>
               <th className="px-4 py-2 text-gray-400">Analyst</th>
               <th className="px-4 py-2 text-gray-400">Actions</th>
-
-
             </tr>
           </thead>
           <tbody>
@@ -70,7 +68,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={() => handleModalEditarActividadAvanzada(tarea)}
+                  onClick={() => handleModalEditarActividadAvanzado(tarea)}
                 >
                   ...
                 </button>

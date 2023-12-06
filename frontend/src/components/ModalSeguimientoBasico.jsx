@@ -1,43 +1,106 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState, useEffect } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import useEmpresas from '../hooks/useEmpresas'
 import useUsuarios from '../hooks/useUsuarios';
-import useEmpresas from '../hooks/useEmpresasUsuarios';
-import Alerta from './Alerta';
-import { useParams } from 'react-router-dom';
+import Alerta from './Alerta'
+import { useParams } from 'react-router-dom'
 
-const ModalColaboradorBasico = ({ actividad }) => {
+const ModalSeguimientoBasico = () => {
   const [id, setId] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [role, setRole] = useState('');
-  const [roles, setRoles] = useState([]);
-  const params = useParams();
-
-  const { modalColaboradorBasico, handleModalUsuario, alerta, usuario, actividad } = useEmpresas();
+  const [nombre, setNombre] = useState('')
+  const [descripcion, setDescripcion] = useState('')
+  const [prioridad, setPrioridad] = useState('')
+  const [fechaEntrega, setFechaEntrega] = useState('')
+  const [infobank, setInfobank] = useState('')
+  const [tipodecierre, setTipodeCierre] = useState('')
+  const params = useParams()
+  const { modalSeguimientoBasico, handleModalSeguimientoBasico, alerta, tarea, mostrarAlerta, submitCuenta } = useEmpresas();
 
   useEffect(() => {
-    if (usuario?._id) {
-      setId(usuario._id);
-      setNombre(usuario.nombre);
-      setRole(usuario.role);
+    if (tarea?._id) {
+      setId(tarea._id);
+      setNombre(tarea.nombre);
+      setDescripcion(tarea.descripcion);
+      setPrioridad(tarea.prioridad);
+      setFechaEntrega(tarea.fechaEntrega);
+      setInfobank(tarea.infobank);
+      setTipodeCierre(tarea.tipodecierre);
       return;
     }
-
-    // Restablecer todos los campos si no hay usuario seleccionado
+    // Restablecer todos los campos si no hay tarea seleccionada
     setId('');
     setNombre('');
-    setRole('');
-  }, [usuario]);
+    setDescripcion('');
+    setFechaEntrega('');
+    setPrioridad('');
+    setInfobank('');
+    setTipodeCierre('');
+  }, [tarea]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para enviar los datos actualizados al servidor
+
+    if ([nombre, descripcion, prioridad, infobank].includes('')) {
+      mostrarAlerta({
+        msg: "Field Required",
+        error: true
+      });
+      return;
+    }
+
+    try {
+      if (id) {
+        // Actualizar cuenta existente
+        await submitCuenta({
+          id,
+          nombre,
+          descripcion,
+          prioridad,
+          fechaEntrega: (prioridad === 'Saving' || prioridad === 'Checking') ? ' ' : fechaEntrega,
+
+          infobank,
+          tipodecierre: (prioridad === 'TC' || tipodecierre === '') ? undefined : tipodecierre, // <-- Modificación aquí
+          empresa: params.id,
+        });
+      } else {
+        // Crear nueva cuenta
+        await submitCuenta({
+          nombre,
+          descripcion,
+          prioridad,
+          fechaEntrega: (prioridad === 'Saving' || prioridad === 'Checking') ? ' ' : fechaEntrega,
+
+          infobank,
+          tipodecierre: (prioridad === 'TC' || tipodecierre === '') ? undefined : tipodecierre,// <-- Modificación aquí
+          empresa: params.id,
+        });
+      }
+
+      // Limpiar campos después de enviar
+      setId('');
+      setNombre('');
+      setDescripcion('');
+      setFechaEntrega('');
+      setPrioridad('');
+      setInfobank('');
+      setTipodeCierre('');
+    } catch (error) {
+      console.error("Error submitting follow up:", error);
+    }
   };
 
-  const { msg } = alerta;
+
+  /*const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Lógica para enviar los datos actualizados al servidor
+  };*/
+
+  const { msg } = alerta
 
   return (
-    <Transition.Root show={modalColaboradorBasico} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleModalUsuario}>
+    <Transition.Root show={modalSeguimientoBasico} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleModalSeguimientoBasico}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -53,7 +116,7 @@ const ModalColaboradorBasico = ({ actividad }) => {
                 <button
                   type="button"
                   className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleModalUsuario}
+                  onClick={handleModalSeguimientoBasico}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                     <path
@@ -64,15 +127,14 @@ const ModalColaboradorBasico = ({ actividad }) => {
                   </svg>
                 </button>
               </div>
-              <div className="sm:flex sm:items-start">
+              <div className="sm:flex sm:items-start sm:max-w-lg">
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                    {'Update Rol User'}
+                    {'Update Update Follow Up'}
                   </Dialog.Title>
                   {msg && <Alerta alerta={alerta} />}
                   <form onSubmit={handleSubmit} className="my-10">
-                                  <div className="w-full mx-auto mt-4">
-                      <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                  <div className="bg-white shadow-md rounded-lg overflow-hidden">
                         <table className="w-full">
                           <thead>
                             <tr className="bg-gray-50">
@@ -96,12 +158,11 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
+                                  id='info-Seguimiento'
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
 
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -109,12 +170,11 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
+                                  id='info-Seguimiento'
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
 
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -122,12 +182,11 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad' 
+                                  id='info-Seguimiento' 
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
 
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -135,12 +194,10 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
+                                  id='info-Seguimiento'
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -148,12 +205,11 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
+                                  id='info-Seguimiento'
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
 
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -161,12 +217,10 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
+                                  id='info-Seguimiento'
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -174,13 +228,46 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
+                                  id='info-Seguimiento'
 
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
-
                                 >
-                                  <option value=" "> --- Choose---</option>
+                                  <option value="OK">OK</option>
+                                  <option value="PD">PD</option>
+                                </select>
+                              </td>
+                              <td className="border px-4 py-2 text-center ">
+                                <select
+                                  id='info-Seguimiento'
+                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                >
+                                  <option value="OK">OK</option>
+                                  <option value="PD">PD</option>
+                                </select>
+                              </td>
+                              <td className="border px-4 py-2 text-center ">
+                                <select
+                                  id='info-Seguimiento'
+                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                >
+                                  <option value="OK">OK</option>
+                                  <option value="PD">PD</option>
+                                </select>
+                              </td>
+                              <td className="border px-4 py-2 text-center ">
+                                <select
+                                  id='info-Seguimiento'
+                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                >
+                                  <option value="OK">OK</option>
+                                  <option value="PD">PD</option>
+                                </select>
+                              </td>
+                              <td className="border px-4 py-2 text-center ">
+                                <select
+                                 id='info-Seguimiento'
+                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                >
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -188,78 +275,18 @@ const ModalColaboradorBasico = ({ actividad }) => {
                               <td className="border px-4 py-2 text-center ">
                                 <select
 
-                                  id='info-actividad'
-
+                                  id='info-Seguimiento'
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
                                 >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
                               </td>
                               <td className="border px-4 py-2 text-center ">
                                 <select
-
-                                  id='info-actividad'
-
+                                  id='info-Seguimiento'
                                   className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
                                 >
-                                  <option value=" "> --- Choose---</option>
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-
-                                  id='info-actividad'
-
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
-
-                                >
-                                  <option value=" "> --- Choose---</option>
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-
-                                  id='info-actividad'
-
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
-                                >
-                                  <option value=" "> --- Choose---</option>
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-
-                                  id='info-actividad'
-
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-
-                                >
-                                  <option value=" "> --- Choose---</option>
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-
-                                  id='info-actividad'
-
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                
-                                >
-                                  <option value=" "> --- Choose---</option>
                                   <option value="OK">OK</option>
                                   <option value="PD">PD</option>
                                 </select>
@@ -268,11 +295,10 @@ const ModalColaboradorBasico = ({ actividad }) => {
                           </tbody>
                         </table>
                       </div>
-                    </div>
                     <input
                       type="submit"
                       className="bg-green-500 hover:bg-green-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors rounded-lg text-sm text-center"
-                      value={'Update Rol'}
+                      value={'Update Follow Up'}
                     />
                   </form>
                 </div>
@@ -282,7 +308,7 @@ const ModalColaboradorBasico = ({ actividad }) => {
         </div>
       </Dialog>
     </Transition.Root>
-  );
-};
+  )
+}
 
-export default ModalColaboradorBasico;
+export default ModalSeguimientoBasico;

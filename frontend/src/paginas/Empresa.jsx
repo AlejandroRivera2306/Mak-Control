@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import useEmpresas from '../hooks/useEmpresas';
 import useAdmin from '../hooks/useAdmin';
 import ModalFormularioStaff from '../components/ModalFormularioStaff';
+import ModalSeguimientoBasico from '../components/ModalSeguimientoBasico';
+import ModalSeguimientoAvanzado from '../components/ModalSeguimientoAvanzado';
 import ModalEliminarCuenta from '../components/ModalEliminarCuenta';
 import CuentasBank from '../components/CuentasBank';
 import Alerta from '../components/Alerta';
@@ -160,6 +162,8 @@ export default function Empresa() {
               <h1 className="text-4xl font-semibold leading-7 text-gray-900 text-center"> Company Information</h1>
               <p className="mt-1 max-w-1xl text-2xl leading-6 text-gray-500 text-center">{nombre}</p>
             </div>
+            <ModalSeguimientoBasico />
+            <ModalSeguimientoAvanzado />
             <ModalFormularioStaff />
             <ModalEliminarCuenta />
             <ModalEliminarColaborador />
