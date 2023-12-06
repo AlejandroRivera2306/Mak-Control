@@ -8,53 +8,57 @@ import { useParams } from 'react-router-dom'
 const ModalFormularioUsuario = () => {
   const [id, setId] = useState('');
   const [nombre, setNombre] = useState('')
-  const [role, setRole] = useState('')
+  const [rol, setRole] = useState('')
   const params = useParams()
 
   const { modalFormularioUsuario, handleModalUsuario, mostrarAlerta, alerta, submitUsuario, usuario, roles } = useUsuarios();
-  
+
 
   useEffect(() => {
     if (usuario?._id) {
-      setId(id);
+      setId(usuario._id);
       setNombre(usuario.nombre);
-      setRole(usuario.role)
+      setRole(usuario.rol);
+      console.log(usuario._id, usuario.rol);
       return;
     }
-    
+
     // Restablecer todos los campos si no hay tarea seleccionada
     // Restablecer todos los campos si no hay tarea seleccionada
     setId('');
     setNombre('');
+    setRole('');
   }, [usuario]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if ([nombre].includes('')) {
+
+    if (nombre === '' || rol === '') {
       mostrarAlerta({
-        msg: "Field Required",
+        msg: 'Fields Required',
         error: true
       });
       return;
     }
-  
+
     try {
+      console.log(id, rol);
       if (id) {
-        // Actualizar cuenta existente
         await submitUsuario({
           id,
-          nombre});
+          nombre,
+          rol: rol,
+        });
       }
-  
       setId('');
       setNombre('');
+      setRole(rol);
     } catch (error) {
-      console.error("Error submitting user:", error);
+      console.error('Error submitting user:', error);
     }
   };
 
-//console.log(usuario.nombre);
+
   const { msg } = alerta
 
   return (
@@ -96,7 +100,7 @@ const ModalFormularioUsuario = () => {
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
 
-                    {'Update Rol User'}
+                  {id ? ' Update User' : ' Create User'}
 
                   </Dialog.Title>
 
@@ -112,7 +116,7 @@ const ModalFormularioUsuario = () => {
                         className='text-gray-700 uppercase font-bold text-sm '
                         htmlFor='nombre'
                       >
-                        Usuario  
+                        Usuario
                       </label>
                       <input
                         type='text'
@@ -133,20 +137,18 @@ const ModalFormularioUsuario = () => {
                         Role
                       </label>
                       <select
-
                         id='info-bank'
-
                         className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                        value={role}
+                        value={rol}
                         onChange={(e) => setRole(e.target.value)}
                       >
-                        <option value=" "> --- Selection ---</option>
+                        <option value=''>--- Selection ---</option>
                         {roles.map(option => (
-                          <option key={option._id}>{option.nombre}</option>
-
+                          <option key={option._id} value={option._id}>
+                            {option.nombre}
+                          </option>
                         ))}
                       </select>
-
                     </div>
 
                     <input
@@ -155,7 +157,7 @@ const ModalFormularioUsuario = () => {
                       className='bg-green-500 hover:bg-green-700 
                                       w-full p-3 text-white uppercase font-bold cursor-pointer 
                                       transition-colors rounded-lg text-sm text-center'
-                      value={id ? 'Update Rol': 'Update Rol'}
+                      value={id ? 'Update Rol' : 'Update Rol'}
 
                     />
 

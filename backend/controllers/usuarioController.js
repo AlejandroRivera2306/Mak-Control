@@ -184,9 +184,10 @@ const editarUsuario = async (req, res) => {
         return res.status(404).json({msg: error.message})
        
     }
-    
+    console.log(usuario.rol);
     usuario.nombre = req.body.nombre || usuario.nombre;
     usuario.confirmado = req.body.confirmado || usuario.confirmado;
+    usuario.rol = req.body.rol || usuario.rol;
    
     
     try {

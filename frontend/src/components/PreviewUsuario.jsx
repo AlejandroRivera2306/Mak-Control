@@ -21,17 +21,6 @@ const PreviewUsuario = ({ usuario }) => {
     <div className='border-b border-gray-900/10 pb-3'>
       <div className='overflow-x-auto'>
         <table className='min-w-full divide-y divide-gray-200 bg-white text-sm'>
-          {/* <thead className='ltr:text-left rtl:text-right'>
-            <tr>
-              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
-                Staff
-              </th>
-              <th className='w-1/6 px-4 py-2 font-medium text-gray-900'>
-                Role
-              </th>
-              <th className='w-1/6 px-4 py-2'></th>
-            </tr>
-          </thead> */}
           <tbody className='divide-y divide-gray-200'>
             <tr>
               <td className='w-1/6 px-4 py-2 font-medium text-gray-50  bg-green-500 rounded-md'>

@@ -118,7 +118,9 @@ const UsuariosProvider = ({children}) => {
 
         if(usuario.id){
            await editarUsuario(usuario)
-
+        
+        }else {
+            await  nuevaUsuario(usuario)
         }
 
       
@@ -143,6 +145,7 @@ const UsuariosProvider = ({children}) => {
                 const {data} = await clienteAxios.put(`/usuarios/${usuario.id}`, usuario, config)
 
                 const usuariosActualizadas = usuarios.map(usuarioState => usuarioState._id === data._id ? data : usuarioState)
+                console.log(usuariosActualizadas);
                     setUsuarios(usuariosActualizadas)
 
 
@@ -250,6 +253,7 @@ const UsuariosProvider = ({children}) => {
 
     const handleModalUsuario = () => {
         setModalFormularioUsuario (!modalFormularioUsuario)
+        setUsuario({})
 
     }
 

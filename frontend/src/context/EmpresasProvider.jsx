@@ -255,7 +255,6 @@ const EmpresasProvider = ({children}) => {
 
     }
 
-
     const submitCuenta =  async tarea  => {
 
         if(tarea?.id){

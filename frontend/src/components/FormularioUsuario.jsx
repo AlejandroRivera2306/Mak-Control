@@ -1,11 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
-import { Link } from 'react-router-dom';
+
 import { useParams } from 'react-router-dom';
 import useUsuarios from '../hooks/useUsuarios';
 import Alerta from './Alerta';
-import { formatearFecha } from '../helpers/formatearFecha';
 
 export default function FormularioUsuario() {
   const [id , setId] = useState(null)
