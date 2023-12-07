@@ -55,7 +55,8 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={!(nombreRol === 'Administrator' || nombreRol === 'Baja Informacion') ? () => handleModalEditarActividad(tarea) : null}
+                  onClick={() => handleModalEditarActividad(tarea)}
+                  disabled={!(nombreRol === 'Administrator' || nombreRol === 'Baja Informacion')}
                 >
                   ...
                 </button>
@@ -63,15 +64,17 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={!(nombreRol === 'Administrator' || nombreRol === 'Reconciliador') ? () => handleModalEditarActividad(tarea) : null}
+                  onClick={() => handleModalEditarActividad(tarea)}
+                  disabled={!(nombreRol === 'Administrator' || nombreRol === 'Reconciliador')}
                 >
                   ...
                 </button>
               </td>
               <td className="border px-4 py-2 text-center">
-                <button
+              <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={!(nombreRol === 'Administrator' || nombreRol === 'Analista') ? () => handleModalEditarActividadAvanzado(tarea) : null}
+                  onClick={() => handleModalEditarActividadAvanzado(tarea)}
+                  disabled={!(nombreRol === 'Administrator' || nombreRol === 'Analista')}
                 >
                   ...
                 </button>

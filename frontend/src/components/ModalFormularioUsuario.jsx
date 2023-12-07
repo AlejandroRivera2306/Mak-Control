@@ -19,7 +19,6 @@ const ModalFormularioUsuario = () => {
       setId(usuario._id);
       setNombre(usuario.nombre);
       setRole(usuario.rol);
-      console.log(usuario);
       return;
     }
 

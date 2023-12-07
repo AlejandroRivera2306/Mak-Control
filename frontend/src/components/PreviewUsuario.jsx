@@ -17,8 +17,6 @@ const PreviewUsuario = ({ usuario }) => {
     rol,
   } = usuario;
   const nombreRol = auth.rol.nombre;
-  //const auth = useContext(useAuth);
-  //console.log(nombreRol);
   return (
     <div>
       {nombreRol === 'Administrator' && (
