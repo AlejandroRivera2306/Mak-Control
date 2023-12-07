@@ -38,6 +38,7 @@ export default function Login() {
       })
       setAlerta({})
       localStorage.setItem('token', data.token)
+      console.log(data)
       setAuth(data)
       navigate("/empresas")
     } catch (error) {

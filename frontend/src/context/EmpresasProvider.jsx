@@ -221,7 +221,6 @@ const EmpresasProvider = ({ children }) => {
     const handleModalSeguimientoBasico = () => {
         setModalSeguimientoBasico(!modalSeguimientoBasico)
         setTarea({})
-
     }
 
     const handleModalSeguimientoAvanzado = () => {
@@ -254,8 +253,7 @@ const EmpresasProvider = ({ children }) => {
             }
 
             const { data } = await clienteAxios.post('/tareas', tarea, config)
-            console.log(data)
-
+            
             //agregar cuentas al state 
             const empresaActualizada = { ...empresa }
             empresaActualizada.tareas = [...empresa.tareas, data]

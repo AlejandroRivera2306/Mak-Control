@@ -1,9 +1,13 @@
 import React from 'react';
 import useEmpresas from '../hooks/useEmpresas';
 import useUsuarios from '../hooks/useUsuarios';
+import useAuth from '../hooks/useAuth';
 import useAdmin from '../hooks/useAdmin';
 
 const CuentasBank = ({ tarea }) => {
+  const { auth } = useAuth()
+  const admin = useAdmin();
+  const nombreRol = auth.rol.nombre;
   const {
     handleModalEditarCuenta,
     handleModalEditarActividad,
@@ -21,7 +25,6 @@ const CuentasBank = ({ tarea }) => {
     tipodecierre,
     _id
   } = tarea;
-  const admin = useAdmin();
   const showFechaEntrega = !!fechaEntrega;
   const isCompleted = estado;
 
@@ -52,7 +55,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={() => handleModalEditarActividad(tarea)}
+                  onClick={!(nombreRol === 'Administrator' || nombreRol === 'Baja Informacion') ? () => handleModalEditarActividad(tarea) : null}
                 >
                   ...
                 </button>
@@ -60,7 +63,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={() => handleModalEditarActividad(tarea)}
+                  onClick={!(nombreRol === 'Administrator' || nombreRol === 'Reconciliador') ? () => handleModalEditarActividad(tarea) : null}
                 >
                   ...
                 </button>
@@ -68,7 +71,7 @@ const CuentasBank = ({ tarea }) => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
-                  onClick={() => handleModalEditarActividadAvanzado(tarea)}
+                  onClick={!(nombreRol === 'Administrator' || nombreRol === 'Analista') ? () => handleModalEditarActividadAvanzado(tarea) : null}
                 >
                   ...
                 </button>
@@ -109,7 +112,7 @@ const CuentasBank = ({ tarea }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </div >
   );
 };
 

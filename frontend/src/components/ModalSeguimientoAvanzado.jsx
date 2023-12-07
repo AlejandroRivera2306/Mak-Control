@@ -102,6 +102,12 @@ const ModalSeguimientoAvanzado = () => {
     <Transition.Root show={modalSeguimientoAvanzado} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleModalSeguimientoAvanzado}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+
+          {/* This element is to trick the browser into centering the modal contents. */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+            &#8203;
+          </span>
+          
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

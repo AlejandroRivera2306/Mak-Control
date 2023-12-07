@@ -129,14 +129,10 @@ const UsuariosProvider = ({ children }) => {
                 msg: 'User  updated ',
                 error: false
             })
-
-            setTimeout(() => {
-                setAlerta({})
-                navigate('/usuarios')
-
-            }, 3000)
-
-
+            setModalFormularioUsuario(false)
+            setAlerta({})
+             navigate('/usuarios')
+            location.reload();
         } catch (error) {
             console.log(error)
         }
@@ -166,7 +162,7 @@ const UsuariosProvider = ({ children }) => {
                 msg: 'User created',
                 error: false
             })
-
+            setModalFormularioUsuario(false)
             setTimeout(() => {
                 setAlerta({})
                 navigate('/usuarios')
