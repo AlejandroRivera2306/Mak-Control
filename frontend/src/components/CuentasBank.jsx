@@ -56,7 +56,7 @@ const CuentasBank = ({ tarea }) => {
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
                   onClick={() => handleModalEditarActividad(tarea)}
-                  disabled={!(nombreRol === 'Administrator' || nombreRol === 'Baja Informacion')}
+                  disabled={nombreRol !== 'Administrador' && nombreRol !== 'Baja Informacion'}
                 >
                   ...
                 </button>
@@ -65,7 +65,7 @@ const CuentasBank = ({ tarea }) => {
                 <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
                   onClick={() => handleModalEditarActividad(tarea)}
-                  disabled={!(nombreRol === 'Administrator' || nombreRol === 'Reconciliador')}
+                  disabled={nombreRol !== 'Administrador' && nombreRol !== 'Reconciliador'}
                 >
                   ...
                 </button>
@@ -74,7 +74,7 @@ const CuentasBank = ({ tarea }) => {
               <button
                   className="bg-sky-500 px-4 py-2 text-white font-bold rounded-lg"
                   onClick={() => handleModalEditarActividadAvanzado(tarea)}
-                  disabled={!(nombreRol === 'Administrator' || nombreRol === 'Analista')}
+                  disabled={nombreRol !== 'Administrador' && nombreRol !=='Analista'}
                 >
                   ...
                 </button>

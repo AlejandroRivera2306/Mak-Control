@@ -107,7 +107,7 @@ const ModalSeguimientoAvanzado = () => {
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
           </span>
-          
+
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -117,7 +117,7 @@ const ModalSeguimientoAvanzado = () => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-full max-w-full sm:p-6">
               <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                 <button
                   type="button"
@@ -133,134 +133,114 @@ const ModalSeguimientoAvanzado = () => {
                   </svg>
                 </button>
               </div>
-              <div className="sm:flex sm:items-start sm:max-w-lg">
+              <div className="sm:flex sm:items-start sm:max-w-full max-w-full">
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
                     {'Update Update Follow Up'}
                   </Dialog.Title>
                   {msg && <Alerta alerta={alerta} />}
-                  <form onSubmit={handleSubmit} className="my-10">
-                    <div className="w-full mx-auto mt-4">
-                      <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                        <table className="w-full">
-                          <thead>
-                            <tr className="bg-gray-50">
-                              <th className="px-4 py-2 text-gray-400">UnkNow Expenses</th>
-                              <th className="px-4 py-2 text-gray-400">Petty Cash</th>
-                              <th className="px-4 py-2 text-gray-400">Subcontractors</th>
-                              <th className="px-4 py-2 text-gray-400">Tax Planning</th>
-                              <th className="px-4 py-2 text-gray-400">Sale Tax</th>
-                              <th className="px-4 py-2 text-gray-400">Payroll</th>
-                              <th className="px-4 py-2 text-gray-400">Loans</th>
-                              <th className="px-4 py-2 text-gray-400">Confirmation SharedHolder Dist.</th>
-                              <th className="px-4 py-2 text-gray-400">Analizado</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                              <td className="border px-4 py-2 text-center ">
-                                <select
-                                  id='info-Seguimiento'
-                                  className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                >
-                                  <option value="OK">OK</option>
-                                  <option value="PD">PD</option>
-                                </select>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                  <form onSubmit={handleSubmit} className="my-10 w-full">
+                    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                      <table className="w-full table-auto">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            <th className="px-4 py-2 text-gray-400">UnkNow Expenses</th>
+                            <th className="px-4 py-2 text-gray-400">Petty Cash</th>
+                            <th className="px-4 py-2 text-gray-400">Subcontractors</th>
+                            <th className="px-4 py-2 text-gray-400">Tax Planning</th>
+                            <th className="px-4 py-2 text-gray-400">Sale Tax</th>
+                            <th className="px-4 py-2 text-gray-400">Payroll</th>
+                            <th className="px-4 py-2 text-gray-400">Loans</th>
+                            <th className="px-4 py-2 text-gray-400">Confirmation SharedHolder Dist.</th>
+                            <th className="px-4 py-2 text-gray-400">Analizado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                            <td className="border px-4 py-2 text-center ">
+                              <select
+                                id='info-Seguimiento'
+                                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                              >
+                                <option value="OK">OK</option>
+                                <option value="PD">PD</option>
+                              </select>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                     <input
                       type="submit"
